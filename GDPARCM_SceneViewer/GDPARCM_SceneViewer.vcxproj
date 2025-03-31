@@ -152,8 +152,10 @@
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="MonitorSharedBuffer.cpp" />
     <ClCompile Include="PoolWorkerThread.cpp" />
+    <ClCompile Include="SceneManager.cpp" />
     <ClCompile Include="sceneviewer.grpc.pb.cc" />
     <ClCompile Include="sceneviewer.pb.cc" />
+    <ClCompile Include="SceneViewerServer.cpp" />
     <ClCompile Include="ThreadManager.cpp" />
     <ClCompile Include="ThreadPool.cpp" />
   </ItemGroup>
@@ -175,10 +177,13 @@
     <ClInclude Include="IETThread.h" />
     <ClInclude Include="IExecutionEvent.h" />
     <ClInclude Include="IWorkerAction.h" />
+    <ClInclude Include="Model3D.h" />
     <ClInclude Include="MonitorSharedBuffer.h" />
     <ClInclude Include="PoolWorkerThread.h" />
+    <ClInclude Include="SceneManager.h" />
     <ClInclude Include="sceneviewer.grpc.pb.h" />
     <ClInclude Include="sceneviewer.pb.h" />
+    <ClInclude Include="SceneViewerServer.h" />
     <ClInclude Include="SceneViewerUtility.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="ThreadManager.h" />

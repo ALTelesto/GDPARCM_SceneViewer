@@ -22,14 +22,20 @@
     <Filter Include="Source Files\Monitors">
       <UniqueIdentifier>{8413fec2-bc61-4228-91ef-2fc4901a0d56}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Threads\Samples">
-      <UniqueIdentifier>{b9a94500-4fda-48e3-ad22-1d3a73baa4b0}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Threads\Thread Pooling">
       <UniqueIdentifier>{96674d31-371a-4343-aa23-d055ca529655}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Networking">
       <UniqueIdentifier>{068e6abf-9f68-4726-8029-de74c533ac53}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking\Samples">
+      <UniqueIdentifier>{cce00251-6dc5-4b0c-92da-205980fd1a4d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking\Server">
+      <UniqueIdentifier>{8bbc1974-a21e-48aa-8659-db02188b60d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Scenes">
+      <UniqueIdentifier>{68c59400-f5a6-4034-b0d9-621c93a66732}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -37,12 +43,6 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="Main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sceneviewer.grpc.pb.cc">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="sceneviewer.pb.cc">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="IETThread.cpp">
@@ -53,18 +53,6 @@
     </ClCompile>
     <ClCompile Include="MonitorSharedBuffer.cpp">
       <Filter>Source Files\Monitors</Filter>
-    </ClCompile>
-    <ClCompile Include="GreeterClient.cpp">
-      <Filter>Source Files\Threads\Samples</Filter>
-    </ClCompile>
-    <ClCompile Include="GreeterServer.cpp">
-      <Filter>Source Files\Threads\Samples</Filter>
-    </ClCompile>
-    <ClCompile Include="helloworld.pb.cc">
-      <Filter>Source Files\Threads\Samples</Filter>
-    </ClCompile>
-    <ClCompile Include="helloworld.grpc.pb.cc">
-      <Filter>Source Files\Threads\Samples</Filter>
     </ClCompile>
     <ClCompile Include="IExecutionEvent.cpp">
       <Filter>Source Files\Threads\Thread Pooling</Filter>
@@ -81,6 +69,30 @@
     <ClCompile Include="ThreadPool.cpp">
       <Filter>Source Files\Threads\Thread Pooling</Filter>
     </ClCompile>
+    <ClCompile Include="GreeterClient.cpp">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="GreeterServer.cpp">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="helloworld.grpc.pb.cc">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="helloworld.pb.cc">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneviewer.grpc.pb.cc">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneviewer.pb.cc">
+      <Filter>Source Files\Networking</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneViewerServer.cpp">
+      <Filter>Source Files\Networking\Server</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -89,32 +101,11 @@
     <ClInclude Include="tiny_obj_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="MonitorSharedBuffer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="IETThread.h">
       <Filter>Source Files\Threads</Filter>
     </ClInclude>
     <ClInclude Include="BusyWaitSemaphore.h">
       <Filter>Source Files\Semaphores</Filter>
-    </ClInclude>
-    <ClInclude Include="GreeterClient.h">
-      <Filter>Source Files\Threads\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="GreeterServer.h">
-      <Filter>Source Files\Threads\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="sceneviewer.grpc.pb.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="sceneviewer.pb.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="helloworld.pb.h">
-      <Filter>Source Files\Threads\Samples</Filter>
-    </ClInclude>
-    <ClInclude Include="helloworld.grpc.pb.h">
-      <Filter>Source Files\Threads\Samples</Filter>
     </ClInclude>
     <ClInclude Include="IExecutionEvent.h">
       <Filter>Source Files\Threads\Thread Pooling</Filter>
@@ -137,13 +128,45 @@
     <ClInclude Include="Dependencies.h">
       <Filter>Source Files</Filter>
     </ClInclude>
+    <ClInclude Include="GreeterClient.h">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="GreeterServer.h">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="helloworld.grpc.pb.h">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="helloworld.pb.h">
+      <Filter>Source Files\Networking\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneviewer.grpc.pb.h">
+      <Filter>Source Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneviewer.pb.h">
+      <Filter>Source Files\Networking</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneViewerServer.h">
+      <Filter>Source Files\Networking\Server</Filter>
+    </ClInclude>
+    <ClInclude Include="MonitorSharedBuffer.h">
+      <Filter>Source Files\Monitors</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Model3D.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\sample.frag" />
     <None Include="Shaders\sample.vert" />
-    <None Include="sceneviewer.proto" />
     <None Include="helloworld.proto">
-      <Filter>Source Files\Threads\Samples</Filter>
+      <Filter>Source Files\Networking\Samples</Filter>
+    </None>
+    <None Include="sceneviewer.proto">
+      <Filter>Source Files\Networking</Filter>
     </None>
   </ItemGroup>
 </Project>
