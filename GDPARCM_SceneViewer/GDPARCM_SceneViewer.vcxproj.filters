@@ -91,7 +91,7 @@
       <Filter>Source Files\Networking\Server</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Scenes</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -152,10 +152,10 @@
     <ClInclude Include="MonitorSharedBuffer.h">
       <Filter>Source Files\Monitors</Filter>
     </ClInclude>
-    <ClInclude Include="SceneManager.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="Model3D.h">
+      <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneManager.h">
       <Filter>Source Files\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
