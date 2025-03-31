@@ -57,8 +57,8 @@ double cooldownTime = 3.0;
 double lastSpawnTime = -3.0;
 double currentTime = 0.0;
 
-// Model class
-class Model {
+// Model3D class
+class Model3D {
 private:
     glm::vec3 position;
     glm::vec3 rotation;
@@ -66,7 +66,7 @@ private:
     GLuint VAO, VBO, EBO;
 
 public:
-    Model(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
+    Model3D(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices) {
         this->position = position;
         this->rotation = rotation;
         this->scale = scale;
@@ -92,7 +92,7 @@ public:
         glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
     }
 
-    ~Model() {
+    ~Model3D() {
         glDeleteVertexArrays(1, &VAO);
         glDeleteBuffers(1, &VBO);
         glDeleteBuffers(1, &EBO);
@@ -159,7 +159,7 @@ public:
 };
 
 // we store the instances of Model here
-vector<Model*> vecModels;
+vector<Model3D*> vecModels;
 
 void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod) {
     // get cameraCenter aka where the camera is currently pointed at
@@ -207,7 +207,7 @@ void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
         }
 
         //creation of model
-        Model* newModel = new Model(ObjectPos, glm::vec3(0.f, 0.f, 0.f), glm::vec3(scale_mod, scale_mod, scale_mod), attributes.vertices, mesh_indices);
+        Model3D* newModel = new Model3D(ObjectPos, glm::vec3(0.f, 0.f, 0.f), glm::vec3(scale_mod, scale_mod, scale_mod), attributes.vertices, mesh_indices);
 
 
     	vecModels.push_back(newModel);
@@ -365,7 +365,7 @@ int main(void) {
         currentTime = glfwGetTime();
 
         // loop through vector and call draw function from each Model instances
-        for (Model* Model : vecModels) {
+        for (Model3D* Model : vecModels) {
             Model->draw();
         }
 

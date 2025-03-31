@@ -1,0 +1,49 @@
+syntax = "proto3";
+
+package sceneviewer;
+
+enum SceneID {
+    SCENE_0 = 0;
+    SCENE_1 = 1;
+    SCENE_2 = 2;
+    SCENE_3 = 3;
+    SCENE_4 = 4;
+}
+
+message Vector3 {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message Vertex {
+    Vector3 position = 1;
+    Vector3 normal = 2;
+}
+
+message Mesh {
+    repeated Vertex vertices = 1;
+    repeated uint32 indices = 2;
+}
+
+message Model {
+    Mesh mesh = 1;
+    Vector3 position = 2;
+    Vector3 rotation = 3;
+    Vector3 scale = 4;
+}
+
+message SceneRequest {
+    SceneID scene_id = 1;
+}
+
+message Scene {
+    repeated Model models = 1;
+}
+
+service SceneViewerService {
+    rpc GetScene (SceneRequest) returns (Scene);
+}
+
+
+

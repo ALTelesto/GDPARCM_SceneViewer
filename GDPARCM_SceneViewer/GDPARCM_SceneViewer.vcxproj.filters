@@ -13,6 +13,21 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
+    <Filter Include="Source Files\Threads">
+      <UniqueIdentifier>{6362d314-2c55-4f0e-a439-42b8427e6646}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Semaphores">
+      <UniqueIdentifier>{36cffe95-d711-4608-90a5-f12b4b26cfbf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Monitors">
+      <UniqueIdentifier>{8413fec2-bc61-4228-91ef-2fc4901a0d56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Threads\Samples">
+      <UniqueIdentifier>{b9a94500-4fda-48e3-ad22-1d3a73baa4b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Threads\Thread Pooling">
+      <UniqueIdentifier>{96674d31-371a-4343-aa23-d055ca529655}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -20,6 +35,48 @@
     </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneviewer.grpc.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="sceneviewer.pb.cc">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="IETThread.cpp">
+      <Filter>Source Files\Threads</Filter>
+    </ClCompile>
+    <ClCompile Include="BusyWaitSemaphore.cpp">
+      <Filter>Source Files\Semaphores</Filter>
+    </ClCompile>
+    <ClCompile Include="MonitorSharedBuffer.cpp">
+      <Filter>Source Files\Monitors</Filter>
+    </ClCompile>
+    <ClCompile Include="GreeterClient.cpp">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="GreeterServer.cpp">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="helloworld.pb.cc">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="helloworld.grpc.pb.cc">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClCompile>
+    <ClCompile Include="IExecutionEvent.cpp">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="IWorkerAction.cpp">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="PoolWorkerThread.cpp">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadManager.cpp">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClCompile>
+    <ClCompile Include="ThreadPool.cpp">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,9 +86,55 @@
     <ClInclude Include="tiny_obj_loader.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="MonitorSharedBuffer.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="IETThread.h">
+      <Filter>Source Files\Threads</Filter>
+    </ClInclude>
+    <ClInclude Include="BusyWaitSemaphore.h">
+      <Filter>Source Files\Semaphores</Filter>
+    </ClInclude>
+    <ClInclude Include="GreeterClient.h">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="GreeterServer.h">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneviewer.grpc.pb.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="sceneviewer.pb.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="helloworld.pb.h">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="helloworld.grpc.pb.h">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </ClInclude>
+    <ClInclude Include="IExecutionEvent.h">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="IWorkerAction.h">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="PoolWorkerThread.h">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadManager.h">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClInclude>
+    <ClInclude Include="ThreadPool.h">
+      <Filter>Source Files\Threads\Thread Pooling</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Shaders\sample.frag" />
     <None Include="Shaders\sample.vert" />
+    <None Include="sceneviewer.proto" />
+    <None Include="helloworld.proto">
+      <Filter>Source Files\Threads\Samples</Filter>
+    </None>
   </ItemGroup>
 </Project>
