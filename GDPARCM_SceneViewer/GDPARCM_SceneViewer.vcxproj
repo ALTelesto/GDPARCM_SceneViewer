@@ -159,6 +159,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="BusyWaitSemaphore.h" />
+    <ClInclude Include="Dependencies.h" />
     <ClInclude Include="GreeterClient.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClInclude>
@@ -178,6 +179,7 @@
     <ClInclude Include="PoolWorkerThread.h" />
     <ClInclude Include="sceneviewer.grpc.pb.h" />
     <ClInclude Include="sceneviewer.pb.h" />
+    <ClInclude Include="SceneViewerUtility.h" />
     <ClInclude Include="stb_image.h" />
     <ClInclude Include="ThreadManager.h" />
     <ClInclude Include="ThreadPool.h" />
