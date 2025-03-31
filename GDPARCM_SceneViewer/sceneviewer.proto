@@ -10,6 +10,11 @@ enum SceneID {
     SCENE_4 = 4;
 }
 
+message LoadingProgress {
+    SceneID scene_id = 1;
+    float progress = 2;
+}
+
 message Vector3 {
     float x = 1;
     float y = 2;
@@ -42,6 +47,7 @@ message Scene {
 }
 
 service SceneViewerService {
+    rpc LoadScene(SceneRequest) returns (stream LoadingProgress);
     rpc GetScene (SceneRequest) returns (Scene);
 }
 

@@ -8,6 +8,7 @@
 
 #include "Dependencies.h"
 #include "Model3D.h"
+#include "SceneManager.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -47,7 +48,7 @@ double lastSpawnTime = -3.0;
 double currentTime = 0.0;
 
 // we store the instances of Model here
-vector<Model3D*> vecModels;
+
 
 void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod) {
     // get cameraCenter aka where the camera is currently pointed at
@@ -98,7 +99,7 @@ void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
         Model3D* newModel = new Model3D(ObjectPos, glm::vec3(0.f, 0.f, 0.f), glm::vec3(scale_mod, scale_mod, scale_mod), attributes.vertices, mesh_indices);
 
 
-    	vecModels.push_back(newModel);
+        SceneManager::getInstance()->loadedScenes[0].push_back(newModel);
     }
 }
 
@@ -130,7 +131,7 @@ void Mouse_Callback(GLFWwindow* window, double mouseXNew, double mouseYNew) {
 }
 
 int main(void) {
-    std::cout << "Dear ImGui version: " << IMGUI_VERSION << std::endl;
+    SceneManager::getInstance();
 
     // from this point on, nothing differs from the code from previous lessons
     GLFWwindow* window;
@@ -253,8 +254,14 @@ int main(void) {
         currentTime = glfwGetTime();
 
         // loop through vector and call draw function from each Model instances
-        for (Model3D* Model : vecModels) {
-            Model->draw(pos_mod, rx_mod, ry_mod, fov_mod, shaderProgram);
+        for(int i = 0; i < SceneManager::getInstance()->loadedScenes.size(); i++)
+        {
+            if(SceneManager::getInstance()->isSceneActive(i))
+            {
+	            for (Model3D* Model : SceneManager::getInstance()->loadedScenes[i]) {
+	                Model->draw(pos_mod, rx_mod, ry_mod, fov_mod, shaderProgram);
+	            }
+            }
         }
 
         ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
