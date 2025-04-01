@@ -3,6 +3,8 @@
 Model3D::Model3D(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, const std::vector<GLfloat>& vertices,
 	const std::vector<GLuint>& indices)
 {
+	this->vertices = vertices;
+	this->indices = indices;
     this->position = position;
     this->rotation = rotation;
     this->scale = scale;
@@ -100,4 +102,34 @@ void Model3D::setRotation(glm::vec3 rotation)
 void Model3D::setScale(glm::vec3 scale)
 {
 	this->scale = scale;
+}
+
+glm::vec3 Model3D::getPosition()
+{
+	return this->position;
+}
+
+glm::vec3 Model3D::getRotation()
+{
+	return this->rotation;
+}
+
+glm::vec3 Model3D::getScale()
+{
+	return this->scale;
+}
+
+std::vector<GLfloat> Model3D::getVertices()
+{
+	return this->vertices;
+}
+
+std::vector<GLuint> Model3D::getIndices()
+{
+	return this->indices;
+}
+
+size_t Model3D::getIndicesSize()
+{
+	return this->indicesSize;
 }

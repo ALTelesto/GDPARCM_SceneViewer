@@ -8,6 +8,8 @@ private:
     glm::vec3 position;
     glm::vec3 rotation;
     glm::vec3 scale;
+    std::vector<GLfloat> vertices;
+    std::vector<GLuint> indices;
     size_t indicesSize;
     GLuint VAO, VBO, EBO;
 
@@ -20,4 +22,12 @@ public:
     void setPosition(glm::vec3 position);
     void setRotation(glm::vec3 rotation);
     void setScale(glm::vec3 scale);
+
+    glm::vec3 getPosition();
+    glm::vec3 getRotation();
+    glm::vec3 getScale();
+
+    std::vector<GLfloat> getVertices();
+    std::vector<GLuint> getIndices();
+    size_t getIndicesSize();
 };

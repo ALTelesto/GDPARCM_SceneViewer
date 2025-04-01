@@ -71,9 +71,6 @@ extern SceneRequestDefaultTypeInternal _SceneRequest_default_instance_;
 class Vector3;
 struct Vector3DefaultTypeInternal;
 extern Vector3DefaultTypeInternal _Vector3_default_instance_;
-class Vertex;
-struct VertexDefaultTypeInternal;
-extern VertexDefaultTypeInternal _Vertex_default_instance_;
 }  // namespace sceneviewer
 namespace google {
 namespace protobuf {
@@ -396,7 +393,7 @@ class SceneRequest final : public ::google::protobuf::Message
     return reinterpret_cast<const SceneRequest*>(
         &_SceneRequest_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 5;
+  static constexpr int kIndexInFileMessages = 4;
   friend void swap(SceneRequest& a, SceneRequest& b) { a.Swap(&b); }
   inline void Swap(SceneRequest* other) {
     if (other == this) return;
@@ -519,6 +516,225 @@ class SceneRequest final : public ::google::protobuf::Message
                           ::google::protobuf::Arena* arena, const Impl_& from,
                           const SceneRequest& from_msg);
     int scene_id_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_sceneviewer_2eproto;
+};
+// -------------------------------------------------------------------
+
+class Mesh final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:sceneviewer.Mesh) */ {
+ public:
+  inline Mesh() : Mesh(nullptr) {}
+  ~Mesh() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(Mesh* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(Mesh));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR Mesh(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline Mesh(const Mesh& from) : Mesh(nullptr, from) {}
+  inline Mesh(Mesh&& from) noexcept
+      : Mesh(nullptr, std::move(from)) {}
+  inline Mesh& operator=(const Mesh& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline Mesh& operator=(Mesh&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const Mesh& default_instance() {
+    return *internal_default_instance();
+  }
+  static inline const Mesh* internal_default_instance() {
+    return reinterpret_cast<const Mesh*>(
+        &_Mesh_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 2;
+  friend void swap(Mesh& a, Mesh& b) { a.Swap(&b); }
+  inline void Swap(Mesh* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(Mesh* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  Mesh* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<Mesh>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const Mesh& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const Mesh& from) { Mesh::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(Mesh* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "sceneviewer.Mesh"; }
+
+ protected:
+  explicit Mesh(::google::protobuf::Arena* arena);
+  Mesh(::google::protobuf::Arena* arena, const Mesh& from);
+  Mesh(::google::protobuf::Arena* arena, Mesh&& from) noexcept
+      : Mesh(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kVerticesFieldNumber = 1,
+    kIndicesFieldNumber = 2,
+  };
+  // repeated float vertices = 1;
+  int vertices_size() const;
+  private:
+  int _internal_vertices_size() const;
+
+  public:
+  void clear_vertices() ;
+  float vertices(int index) const;
+  void set_vertices(int index, float value);
+  void add_vertices(float value);
+  const ::google::protobuf::RepeatedField<float>& vertices() const;
+  ::google::protobuf::RepeatedField<float>* mutable_vertices();
+
+  private:
+  const ::google::protobuf::RepeatedField<float>& _internal_vertices() const;
+  ::google::protobuf::RepeatedField<float>* _internal_mutable_vertices();
+
+  public:
+  // repeated uint32 indices = 2;
+  int indices_size() const;
+  private:
+  int _internal_indices_size() const;
+
+  public:
+  void clear_indices() ;
+  ::uint32_t indices(int index) const;
+  void set_indices(int index, ::uint32_t value);
+  void add_indices(::uint32_t value);
+  const ::google::protobuf::RepeatedField<::uint32_t>& indices() const;
+  ::google::protobuf::RepeatedField<::uint32_t>* mutable_indices();
+
+  private:
+  const ::google::protobuf::RepeatedField<::uint32_t>& _internal_indices() const;
+  ::google::protobuf::RepeatedField<::uint32_t>* _internal_mutable_indices();
+
+  public:
+  // @@protoc_insertion_point(class_scope:sceneviewer.Mesh)
+ private:
+  class _Internal;
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      1, 2, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const Mesh& from_msg);
+    ::google::protobuf::RepeatedField<float> vertices_;
+    ::google::protobuf::RepeatedField<::uint32_t> indices_;
+    ::google::protobuf::internal::CachedSize _indices_cached_byte_size_;
     ::google::protobuf::internal::CachedSize _cached_size_;
     PROTOBUF_TSAN_DECLARE_MEMBER
   };
@@ -762,437 +978,6 @@ class LoadProgress final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
-class Vertex final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:sceneviewer.Vertex) */ {
- public:
-  inline Vertex() : Vertex(nullptr) {}
-  ~Vertex() PROTOBUF_FINAL;
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(Vertex* msg, std::destroying_delete_t) {
-    SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(Vertex));
-  }
-#endif
-
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR Vertex(
-      ::google::protobuf::internal::ConstantInitialized);
-
-  inline Vertex(const Vertex& from) : Vertex(nullptr, from) {}
-  inline Vertex(Vertex&& from) noexcept
-      : Vertex(nullptr, std::move(from)) {}
-  inline Vertex& operator=(const Vertex& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Vertex& operator=(Vertex&& from) noexcept {
-    if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Vertex& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Vertex* internal_default_instance() {
-    return reinterpret_cast<const Vertex*>(
-        &_Vertex_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 2;
-  friend void swap(Vertex& a, Vertex& b) { a.Swap(&b); }
-  inline void Swap(Vertex* other) {
-    if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Vertex* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  Vertex* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<Vertex>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const Vertex& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const Vertex& from) { Vertex::MergeImpl(*this, from); }
-
-  private:
-  static void MergeImpl(
-      ::google::protobuf::MessageLite& to_msg,
-      const ::google::protobuf::MessageLite& from_msg);
-
-  public:
-  bool IsInitialized() const {
-    return true;
-  }
-  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
-  #if defined(PROTOBUF_CUSTOM_VTABLE)
-  private:
-  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
-
-  public:
-  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
-  #else   // PROTOBUF_CUSTOM_VTABLE
-  ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::google::protobuf::Arena* arena);
-  static void SharedDtor(MessageLite& self);
-  void InternalSwap(Vertex* other);
- private:
-  template <typename T>
-  friend ::absl::string_view(
-      ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "sceneviewer.Vertex"; }
-
- protected:
-  explicit Vertex(::google::protobuf::Arena* arena);
-  Vertex(::google::protobuf::Arena* arena, const Vertex& from);
-  Vertex(::google::protobuf::Arena* arena, Vertex&& from) noexcept
-      : Vertex(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const;
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-  enum : int {
-    kPositionFieldNumber = 1,
-    kNormalFieldNumber = 2,
-  };
-  // .sceneviewer.Vector3 position = 1;
-  bool has_position() const;
-  void clear_position() ;
-  const ::sceneviewer::Vector3& position() const;
-  PROTOBUF_NODISCARD ::sceneviewer::Vector3* release_position();
-  ::sceneviewer::Vector3* mutable_position();
-  void set_allocated_position(::sceneviewer::Vector3* value);
-  void unsafe_arena_set_allocated_position(::sceneviewer::Vector3* value);
-  ::sceneviewer::Vector3* unsafe_arena_release_position();
-
-  private:
-  const ::sceneviewer::Vector3& _internal_position() const;
-  ::sceneviewer::Vector3* _internal_mutable_position();
-
-  public:
-  // .sceneviewer.Vector3 normal = 2;
-  bool has_normal() const;
-  void clear_normal() ;
-  const ::sceneviewer::Vector3& normal() const;
-  PROTOBUF_NODISCARD ::sceneviewer::Vector3* release_normal();
-  ::sceneviewer::Vector3* mutable_normal();
-  void set_allocated_normal(::sceneviewer::Vector3* value);
-  void unsafe_arena_set_allocated_normal(::sceneviewer::Vector3* value);
-  ::sceneviewer::Vector3* unsafe_arena_release_normal();
-
-  private:
-  const ::sceneviewer::Vector3& _internal_normal() const;
-  ::sceneviewer::Vector3* _internal_mutable_normal();
-
-  public:
-  // @@protoc_insertion_point(class_scope:sceneviewer.Vertex)
- private:
-  class _Internal;
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 2,
-      0, 2>
-      _table_;
-
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena);
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena, const Impl_& from,
-                          const Vertex& from_msg);
-    ::google::protobuf::internal::HasBits<1> _has_bits_;
-    ::google::protobuf::internal::CachedSize _cached_size_;
-    ::sceneviewer::Vector3* position_;
-    ::sceneviewer::Vector3* normal_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_sceneviewer_2eproto;
-};
-// -------------------------------------------------------------------
-
-class Mesh final : public ::google::protobuf::Message
-/* @@protoc_insertion_point(class_definition:sceneviewer.Mesh) */ {
- public:
-  inline Mesh() : Mesh(nullptr) {}
-  ~Mesh() PROTOBUF_FINAL;
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-  void operator delete(Mesh* msg, std::destroying_delete_t) {
-    SharedDtor(*msg);
-    ::google::protobuf::internal::SizedDelete(msg, sizeof(Mesh));
-  }
-#endif
-
-  template <typename = void>
-  explicit PROTOBUF_CONSTEXPR Mesh(
-      ::google::protobuf::internal::ConstantInitialized);
-
-  inline Mesh(const Mesh& from) : Mesh(nullptr, from) {}
-  inline Mesh(Mesh&& from) noexcept
-      : Mesh(nullptr, std::move(from)) {}
-  inline Mesh& operator=(const Mesh& from) {
-    CopyFrom(from);
-    return *this;
-  }
-  inline Mesh& operator=(Mesh&& from) noexcept {
-    if (this == &from) return *this;
-    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
-      InternalSwap(&from);
-    } else {
-      CopyFrom(from);
-    }
-    return *this;
-  }
-
-  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
-  }
-  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
-      ABSL_ATTRIBUTE_LIFETIME_BOUND {
-    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
-  }
-
-  static const ::google::protobuf::Descriptor* descriptor() {
-    return GetDescriptor();
-  }
-  static const ::google::protobuf::Descriptor* GetDescriptor() {
-    return default_instance().GetMetadata().descriptor;
-  }
-  static const ::google::protobuf::Reflection* GetReflection() {
-    return default_instance().GetMetadata().reflection;
-  }
-  static const Mesh& default_instance() {
-    return *internal_default_instance();
-  }
-  static inline const Mesh* internal_default_instance() {
-    return reinterpret_cast<const Mesh*>(
-        &_Mesh_default_instance_);
-  }
-  static constexpr int kIndexInFileMessages = 3;
-  friend void swap(Mesh& a, Mesh& b) { a.Swap(&b); }
-  inline void Swap(Mesh* other) {
-    if (other == this) return;
-    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
-      InternalSwap(other);
-    } else {
-      ::google::protobuf::internal::GenericSwap(this, other);
-    }
-  }
-  void UnsafeArenaSwap(Mesh* other) {
-    if (other == this) return;
-    ABSL_DCHECK(GetArena() == other->GetArena());
-    InternalSwap(other);
-  }
-
-  // implements Message ----------------------------------------------
-
-  Mesh* New(::google::protobuf::Arena* arena = nullptr) const {
-    return ::google::protobuf::Message::DefaultConstruct<Mesh>(arena);
-  }
-  using ::google::protobuf::Message::CopyFrom;
-  void CopyFrom(const Mesh& from);
-  using ::google::protobuf::Message::MergeFrom;
-  void MergeFrom(const Mesh& from) { Mesh::MergeImpl(*this, from); }
-
-  private:
-  static void MergeImpl(
-      ::google::protobuf::MessageLite& to_msg,
-      const ::google::protobuf::MessageLite& from_msg);
-
-  public:
-  bool IsInitialized() const {
-    return true;
-  }
-  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
-  #if defined(PROTOBUF_CUSTOM_VTABLE)
-  private:
-  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
-  static ::uint8_t* _InternalSerialize(
-      const MessageLite& msg, ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream);
-
-  public:
-  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-    return _InternalSerialize(*this, target, stream);
-  }
-  #else   // PROTOBUF_CUSTOM_VTABLE
-  ::size_t ByteSizeLong() const final;
-  ::uint8_t* _InternalSerialize(
-      ::uint8_t* target,
-      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
-  #endif  // PROTOBUF_CUSTOM_VTABLE
-  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
-
-  private:
-  void SharedCtor(::google::protobuf::Arena* arena);
-  static void SharedDtor(MessageLite& self);
-  void InternalSwap(Mesh* other);
- private:
-  template <typename T>
-  friend ::absl::string_view(
-      ::google::protobuf::internal::GetAnyMessageName)();
-  static ::absl::string_view FullMessageName() { return "sceneviewer.Mesh"; }
-
- protected:
-  explicit Mesh(::google::protobuf::Arena* arena);
-  Mesh(::google::protobuf::Arena* arena, const Mesh& from);
-  Mesh(::google::protobuf::Arena* arena, Mesh&& from) noexcept
-      : Mesh(arena) {
-    *this = ::std::move(from);
-  }
-  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
-  static void* PlacementNew_(const void*, void* mem,
-                             ::google::protobuf::Arena* arena);
-  static constexpr auto InternalNewImpl_();
-  static const ::google::protobuf::internal::ClassDataFull _class_data_;
-
- public:
-  ::google::protobuf::Metadata GetMetadata() const;
-  // nested types ----------------------------------------------------
-
-  // accessors -------------------------------------------------------
-  enum : int {
-    kVerticesFieldNumber = 1,
-    kIndicesFieldNumber = 2,
-  };
-  // repeated .sceneviewer.Vertex vertices = 1;
-  int vertices_size() const;
-  private:
-  int _internal_vertices_size() const;
-
-  public:
-  void clear_vertices() ;
-  ::sceneviewer::Vertex* mutable_vertices(int index);
-  ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>* mutable_vertices();
-
-  private:
-  const ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>& _internal_vertices() const;
-  ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>* _internal_mutable_vertices();
-  public:
-  const ::sceneviewer::Vertex& vertices(int index) const;
-  ::sceneviewer::Vertex* add_vertices();
-  const ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>& vertices() const;
-  // repeated uint32 indices = 2;
-  int indices_size() const;
-  private:
-  int _internal_indices_size() const;
-
-  public:
-  void clear_indices() ;
-  ::uint32_t indices(int index) const;
-  void set_indices(int index, ::uint32_t value);
-  void add_indices(::uint32_t value);
-  const ::google::protobuf::RepeatedField<::uint32_t>& indices() const;
-  ::google::protobuf::RepeatedField<::uint32_t>* mutable_indices();
-
-  private:
-  const ::google::protobuf::RepeatedField<::uint32_t>& _internal_indices() const;
-  ::google::protobuf::RepeatedField<::uint32_t>* _internal_mutable_indices();
-
-  public:
-  // @@protoc_insertion_point(class_scope:sceneviewer.Mesh)
- private:
-  class _Internal;
-  friend class ::google::protobuf::internal::TcParser;
-  static const ::google::protobuf::internal::TcParseTable<
-      1, 2, 1,
-      0, 2>
-      _table_;
-
-  friend class ::google::protobuf::MessageLite;
-  friend class ::google::protobuf::Arena;
-  template <typename T>
-  friend class ::google::protobuf::Arena::InternalHelper;
-  using InternalArenaConstructable_ = void;
-  using DestructorSkippable_ = void;
-  struct Impl_ {
-    inline explicit constexpr Impl_(
-        ::google::protobuf::internal::ConstantInitialized) noexcept;
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena);
-    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
-                          ::google::protobuf::Arena* arena, const Impl_& from,
-                          const Mesh& from_msg);
-    ::google::protobuf::RepeatedPtrField< ::sceneviewer::Vertex > vertices_;
-    ::google::protobuf::RepeatedField<::uint32_t> indices_;
-    ::google::protobuf::internal::CachedSize _indices_cached_byte_size_;
-    ::google::protobuf::internal::CachedSize _cached_size_;
-    PROTOBUF_TSAN_DECLARE_MEMBER
-  };
-  union { Impl_ _impl_; };
-  friend struct ::TableStruct_sceneviewer_2eproto;
-};
-// -------------------------------------------------------------------
-
 class Model final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:sceneviewer.Model) */ {
  public:
@@ -1252,7 +1037,7 @@ class Model final : public ::google::protobuf::Message
     return reinterpret_cast<const Model*>(
         &_Model_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 4;
+  static constexpr int kIndexInFileMessages = 3;
   friend void swap(Model& a, Model& b) { a.Swap(&b); }
   inline void Swap(Model* other) {
     if (other == this) return;
@@ -1499,7 +1284,7 @@ class Scene final : public ::google::protobuf::Message
     return reinterpret_cast<const Scene*>(
         &_Scene_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 6;
+  static constexpr int kIndexInFileMessages = 5;
   friend void swap(Scene& a, Scene& b) { a.Swap(&b); }
   inline void Swap(Scene* other) {
     if (other == this) return;
@@ -1832,205 +1617,9 @@ inline void Vector3::_internal_set_z(float value) {
 
 // -------------------------------------------------------------------
 
-// Vertex
-
-// .sceneviewer.Vector3 position = 1;
-inline bool Vertex::has_position() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000001u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.position_ != nullptr);
-  return value;
-}
-inline void Vertex::clear_position() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.position_ != nullptr) _impl_.position_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000001u;
-}
-inline const ::sceneviewer::Vector3& Vertex::_internal_position() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  const ::sceneviewer::Vector3* p = _impl_.position_;
-  return p != nullptr ? *p : reinterpret_cast<const ::sceneviewer::Vector3&>(::sceneviewer::_Vector3_default_instance_);
-}
-inline const ::sceneviewer::Vector3& Vertex::position() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:sceneviewer.Vertex.position)
-  return _internal_position();
-}
-inline void Vertex::unsafe_arena_set_allocated_position(::sceneviewer::Vector3* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.position_);
-  }
-  _impl_.position_ = reinterpret_cast<::sceneviewer::Vector3*>(value);
-  if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sceneviewer.Vertex.position)
-}
-inline ::sceneviewer::Vector3* Vertex::release_position() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::sceneviewer::Vector3* released = _impl_.position_;
-  _impl_.position_ = nullptr;
-  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
-    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
-    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    if (GetArena() == nullptr) {
-      delete old;
-    }
-  } else {
-    if (GetArena() != nullptr) {
-      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    }
-  }
-  return released;
-}
-inline ::sceneviewer::Vector3* Vertex::unsafe_arena_release_position() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:sceneviewer.Vertex.position)
-
-  _impl_._has_bits_[0] &= ~0x00000001u;
-  ::sceneviewer::Vector3* temp = _impl_.position_;
-  _impl_.position_ = nullptr;
-  return temp;
-}
-inline ::sceneviewer::Vector3* Vertex::_internal_mutable_position() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.position_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::sceneviewer::Vector3>(GetArena());
-    _impl_.position_ = reinterpret_cast<::sceneviewer::Vector3*>(p);
-  }
-  return _impl_.position_;
-}
-inline ::sceneviewer::Vector3* Vertex::mutable_position() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  _impl_._has_bits_[0] |= 0x00000001u;
-  ::sceneviewer::Vector3* _msg = _internal_mutable_position();
-  // @@protoc_insertion_point(field_mutable:sceneviewer.Vertex.position)
-  return _msg;
-}
-inline void Vertex::set_allocated_position(::sceneviewer::Vector3* value) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (message_arena == nullptr) {
-    delete (_impl_.position_);
-  }
-
-  if (value != nullptr) {
-    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
-    if (message_arena != submessage_arena) {
-      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000001u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000001u;
-  }
-
-  _impl_.position_ = reinterpret_cast<::sceneviewer::Vector3*>(value);
-  // @@protoc_insertion_point(field_set_allocated:sceneviewer.Vertex.position)
-}
-
-// .sceneviewer.Vector3 normal = 2;
-inline bool Vertex::has_normal() const {
-  bool value = (_impl_._has_bits_[0] & 0x00000002u) != 0;
-  PROTOBUF_ASSUME(!value || _impl_.normal_ != nullptr);
-  return value;
-}
-inline void Vertex::clear_normal() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.normal_ != nullptr) _impl_.normal_->Clear();
-  _impl_._has_bits_[0] &= ~0x00000002u;
-}
-inline const ::sceneviewer::Vector3& Vertex::_internal_normal() const {
-  ::google::protobuf::internal::TSanRead(&_impl_);
-  const ::sceneviewer::Vector3* p = _impl_.normal_;
-  return p != nullptr ? *p : reinterpret_cast<const ::sceneviewer::Vector3&>(::sceneviewer::_Vector3_default_instance_);
-}
-inline const ::sceneviewer::Vector3& Vertex::normal() const ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:sceneviewer.Vertex.normal)
-  return _internal_normal();
-}
-inline void Vertex::unsafe_arena_set_allocated_normal(::sceneviewer::Vector3* value) {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (GetArena() == nullptr) {
-    delete reinterpret_cast<::google::protobuf::MessageLite*>(_impl_.normal_);
-  }
-  _impl_.normal_ = reinterpret_cast<::sceneviewer::Vector3*>(value);
-  if (value != nullptr) {
-    _impl_._has_bits_[0] |= 0x00000002u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
-  }
-  // @@protoc_insertion_point(field_unsafe_arena_set_allocated:sceneviewer.Vertex.normal)
-}
-inline ::sceneviewer::Vector3* Vertex::release_normal() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-
-  _impl_._has_bits_[0] &= ~0x00000002u;
-  ::sceneviewer::Vector3* released = _impl_.normal_;
-  _impl_.normal_ = nullptr;
-  if (::google::protobuf::internal::DebugHardenForceCopyInRelease()) {
-    auto* old = reinterpret_cast<::google::protobuf::MessageLite*>(released);
-    released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    if (GetArena() == nullptr) {
-      delete old;
-    }
-  } else {
-    if (GetArena() != nullptr) {
-      released = ::google::protobuf::internal::DuplicateIfNonNull(released);
-    }
-  }
-  return released;
-}
-inline ::sceneviewer::Vector3* Vertex::unsafe_arena_release_normal() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  // @@protoc_insertion_point(field_release:sceneviewer.Vertex.normal)
-
-  _impl_._has_bits_[0] &= ~0x00000002u;
-  ::sceneviewer::Vector3* temp = _impl_.normal_;
-  _impl_.normal_ = nullptr;
-  return temp;
-}
-inline ::sceneviewer::Vector3* Vertex::_internal_mutable_normal() {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (_impl_.normal_ == nullptr) {
-    auto* p = ::google::protobuf::Message::DefaultConstruct<::sceneviewer::Vector3>(GetArena());
-    _impl_.normal_ = reinterpret_cast<::sceneviewer::Vector3*>(p);
-  }
-  return _impl_.normal_;
-}
-inline ::sceneviewer::Vector3* Vertex::mutable_normal() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  _impl_._has_bits_[0] |= 0x00000002u;
-  ::sceneviewer::Vector3* _msg = _internal_mutable_normal();
-  // @@protoc_insertion_point(field_mutable:sceneviewer.Vertex.normal)
-  return _msg;
-}
-inline void Vertex::set_allocated_normal(::sceneviewer::Vector3* value) {
-  ::google::protobuf::Arena* message_arena = GetArena();
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  if (message_arena == nullptr) {
-    delete (_impl_.normal_);
-  }
-
-  if (value != nullptr) {
-    ::google::protobuf::Arena* submessage_arena = (value)->GetArena();
-    if (message_arena != submessage_arena) {
-      value = ::google::protobuf::internal::GetOwnedMessage(message_arena, value, submessage_arena);
-    }
-    _impl_._has_bits_[0] |= 0x00000002u;
-  } else {
-    _impl_._has_bits_[0] &= ~0x00000002u;
-  }
-
-  _impl_.normal_ = reinterpret_cast<::sceneviewer::Vector3*>(value);
-  // @@protoc_insertion_point(field_set_allocated:sceneviewer.Vertex.normal)
-}
-
-// -------------------------------------------------------------------
-
 // Mesh
 
-// repeated .sceneviewer.Vertex vertices = 1;
+// repeated float vertices = 1;
 inline int Mesh::_internal_vertices_size() const {
   return _internal_vertices().size();
 }
@@ -2041,40 +1630,36 @@ inline void Mesh::clear_vertices() {
   ::google::protobuf::internal::TSanWrite(&_impl_);
   _impl_.vertices_.Clear();
 }
-inline ::sceneviewer::Vertex* Mesh::mutable_vertices(int index)
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_mutable:sceneviewer.Mesh.vertices)
-  return _internal_mutable_vertices()->Mutable(index);
+inline float Mesh::vertices(int index) const {
+  // @@protoc_insertion_point(field_get:sceneviewer.Mesh.vertices)
+  return _internal_vertices().Get(index);
 }
-inline ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>* Mesh::mutable_vertices()
+inline void Mesh::set_vertices(int index, float value) {
+  _internal_mutable_vertices()->Set(index, value);
+  // @@protoc_insertion_point(field_set:sceneviewer.Mesh.vertices)
+}
+inline void Mesh::add_vertices(float value) {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  _internal_mutable_vertices()->Add(value);
+  // @@protoc_insertion_point(field_add:sceneviewer.Mesh.vertices)
+}
+inline const ::google::protobuf::RepeatedField<float>& Mesh::vertices() const
+    ABSL_ATTRIBUTE_LIFETIME_BOUND {
+  // @@protoc_insertion_point(field_list:sceneviewer.Mesh.vertices)
+  return _internal_vertices();
+}
+inline ::google::protobuf::RepeatedField<float>* Mesh::mutable_vertices()
     ABSL_ATTRIBUTE_LIFETIME_BOUND {
   // @@protoc_insertion_point(field_mutable_list:sceneviewer.Mesh.vertices)
   ::google::protobuf::internal::TSanWrite(&_impl_);
   return _internal_mutable_vertices();
 }
-inline const ::sceneviewer::Vertex& Mesh::vertices(int index) const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_get:sceneviewer.Mesh.vertices)
-  return _internal_vertices().Get(index);
-}
-inline ::sceneviewer::Vertex* Mesh::add_vertices() ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::sceneviewer::Vertex* _add = _internal_mutable_vertices()->Add();
-  // @@protoc_insertion_point(field_add:sceneviewer.Mesh.vertices)
-  return _add;
-}
-inline const ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>& Mesh::vertices() const
-    ABSL_ATTRIBUTE_LIFETIME_BOUND {
-  // @@protoc_insertion_point(field_list:sceneviewer.Mesh.vertices)
-  return _internal_vertices();
-}
-inline const ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>&
+inline const ::google::protobuf::RepeatedField<float>&
 Mesh::_internal_vertices() const {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return _impl_.vertices_;
 }
-inline ::google::protobuf::RepeatedPtrField<::sceneviewer::Vertex>*
-Mesh::_internal_mutable_vertices() {
+inline ::google::protobuf::RepeatedField<float>* Mesh::_internal_mutable_vertices() {
   ::google::protobuf::internal::TSanRead(&_impl_);
   return &_impl_.vertices_;
 }

@@ -13,14 +13,19 @@
 #include "SceneManager.h"
 #include "SceneUI.h"
 
+#include "SceneViewerServer.h"
+
 #include "Dependencies.h"
 
+using namespace std;
+
+#define IS_CLIENT 1
+
+#pragma region client
 static void glfw_error_callback(int error, const char* description)
 {
-    fprintf(stderr, "GLFW Error %d: %s\n", error, description);
+	fprintf(stderr, "GLFW Error %d: %s\n", error, description);
 }
-
-using namespace std;
 
 // moved these 3 to become global variables
 // important in order for Model3D's draw function
@@ -55,7 +60,6 @@ double currentTime = 0.0;
 // sceneUI variable
 SceneUI* guiScreen = new SceneUI();
 
-// we store the instances of Model here
 
 
 void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod) {
@@ -138,18 +142,19 @@ void Mouse_Callback(GLFWwindow* window, double mouseXNew, double mouseYNew) {
     }
 }
 
-int main(void) {
-    SceneManager::getInstance();
+int ViewerWindow()
+{
+	SceneManager::getInstance();
 
-    // from this point on, nothing differs from the code from previous lessons
-    GLFWwindow* window;
+	// from this point on, nothing differs from the code from previous lessons
+	GLFWwindow* window;
 
-    /* Initialize the library */
-    glfwSetErrorCallback(glfw_error_callback);
-    if (!glfwInit())
-        return 1;
+	/* Initialize the library */
+	glfwSetErrorCallback(glfw_error_callback);
+	if (!glfwInit())
+		return 1;
 
-    // Decide GL+GLSL versions
+	// Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
     // GL ES 2.0 + GLSL 100 (WebGL 1.0)
     const char* glsl_version = "#version 100";
@@ -170,120 +175,136 @@ int main(void) {
     glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
     glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
 #else
-    // GL 3.0 + GLSL 130
-    const char* glsl_version = "#version 130";
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
-    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
-    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
-    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
+	// GL 3.0 + GLSL 130
+	const char* glsl_version = "#version 130";
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+	glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+	//glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+	//glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
 #endif
 
-    /* Create a windowed mode window and its OpenGL context */
-    window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
-    if (!window) {
-        glfwTerminate();
-        return -1;
-    }
+	/* Create a windowed mode window and its OpenGL context */
+	window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
+	if (!window) {
+		glfwTerminate();
+		return -1;
+	}
 
-    /* Make the window's context current */
-    glfwMakeContextCurrent(window);
-    gladLoadGL();
+	/* Make the window's context current */
+	glfwMakeContextCurrent(window);
+	gladLoadGL();
 
-    glfwSetKeyCallback(window, Key_Callback);
-    glfwSetCursorPosCallback(window, Mouse_Callback);
+	glfwSetKeyCallback(window, Key_Callback);
+	glfwSetCursorPosCallback(window, Mouse_Callback);
 
-    // Setup Dear ImGui context
-    IMGUI_CHECKVERSION();
-    ImGui::CreateContext();
-    ImGuiIO& io = ImGui::GetIO(); (void)io;
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
-    io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
+	// Setup Dear ImGui context
+	IMGUI_CHECKVERSION();
+	ImGui::CreateContext();
+	ImGuiIO& io = ImGui::GetIO(); (void)io;
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableKeyboard;     // Enable Keyboard Controls
+	io.ConfigFlags |= ImGuiConfigFlags_NavEnableGamepad;      // Enable Gamepad Controls
 
-    // Setup Dear ImGui style
-    ImGui::StyleColorsDark();
+	// Setup Dear ImGui style
+	ImGui::StyleColorsDark();
 
-    ImGui_ImplGlfw_InitForOpenGL(window, true);
+	ImGui_ImplGlfw_InitForOpenGL(window, true);
 #ifdef __EMSCRIPTEN__
     ImGui_ImplGlfw_InstallEmscriptenCallbacks(window, "#canvas");
 #endif
-    ImGui_ImplOpenGL3_Init(glsl_version);
+	ImGui_ImplOpenGL3_Init(glsl_version);
 
-    bool show_demo_window = true;
-    bool show_another_window = false;
-    ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
+	bool show_demo_window = true;
+	bool show_another_window = false;
+	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
 
-    // shaders
-    std::fstream vertSrc("Shaders/sample.vert");
-    std::stringstream vertBuff;
-    vertBuff << vertSrc.rdbuf();
-    std::string vertS = vertBuff.str();
-    const char* v = vertS.c_str();
+	// shaders
+	std::fstream vertSrc("Shaders/sample.vert");
+	std::stringstream vertBuff;
+	vertBuff << vertSrc.rdbuf();
+	std::string vertS = vertBuff.str();
+	const char* v = vertS.c_str();
 
-    std::fstream fragSrc("Shaders/sample.frag");
-    std::stringstream fragBuff;
-    fragBuff << fragSrc.rdbuf();
-    std::string fragS = fragBuff.str();
-    const char* f = fragS.c_str();
+	std::fstream fragSrc("Shaders/sample.frag");
+	std::stringstream fragBuff;
+	fragBuff << fragSrc.rdbuf();
+	std::string fragS = fragBuff.str();
+	const char* f = fragS.c_str();
 
-    GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
-    glShaderSource(vertShader, 1, &v, NULL);
-    glCompileShader(vertShader);
+	GLuint vertShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertShader, 1, &v, NULL);
+	glCompileShader(vertShader);
 
-    GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
-    glShaderSource(fragShader, 1, &f, NULL);
-    glCompileShader(fragShader);
+	GLuint fragShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragShader, 1, &f, NULL);
+	glCompileShader(fragShader);
 
-    shaderProgram = glCreateProgram();
-    glAttachShader(shaderProgram, vertShader);
-    glAttachShader(shaderProgram, fragShader);
+	shaderProgram = glCreateProgram();
+	glAttachShader(shaderProgram, vertShader);
+	glAttachShader(shaderProgram, fragShader);
 
-    glLinkProgram(shaderProgram);
+	glLinkProgram(shaderProgram);
 
-    /* Loop until the user closes the window */
-    while (!glfwWindowShouldClose(window)) {
-        glfwPollEvents();
-        if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0) {
-            ImGui_ImplGlfw_Sleep(10);
-            continue;
-        }
+	/* Loop until the user closes the window */
+	while (!glfwWindowShouldClose(window)) {
+		glfwPollEvents();
+		if (glfwGetWindowAttrib(window, GLFW_ICONIFIED) != 0) {
+			ImGui_ImplGlfw_Sleep(10);
+			continue;
+		}
 
-        ImGui_ImplOpenGL3_NewFrame();
-        ImGui_ImplGlfw_NewFrame();
-        ImGui::NewFrame();
+		ImGui_ImplOpenGL3_NewFrame();
+		ImGui_ImplGlfw_NewFrame();
+		ImGui::NewFrame();
 
-        guiScreen->render();
+		guiScreen->render();
 
-        if (show_demo_window)
-            ImGui::ShowDemoWindow(&show_demo_window);
+		if (show_demo_window)
+			ImGui::ShowDemoWindow(&show_demo_window);
 
-        /* Render here */
-        ImGui::Render();
-        glClear(GL_COLOR_BUFFER_BIT);
+		/* Render here */
+		ImGui::Render();
+		glClear(GL_COLOR_BUFFER_BIT);
 
-        // get current timestamp
-        currentTime = glfwGetTime();
+		// get current timestamp
+		currentTime = glfwGetTime();
 
-        // loop through vector and call draw function from each Model instances
-        for(int i = 0; i < SceneManager::getInstance()->loadedScenes.size(); i++)
-        {
-            if(SceneManager::getInstance()->isSceneActive(static_cast<SceneID>(i)))
-            {
-	            for (Model3D* Model : SceneManager::getInstance()->loadedScenes[i]) {
-	                Model->draw(pos_mod, rx_mod, ry_mod, fov_mod, shaderProgram);
-	            }
-            }
-        }
+		// loop through vector and call draw function from each Model instances
+		for(int i = 0; i < SceneManager::getInstance()->loadedScenes.size(); i++)
+		{
+			if(SceneManager::getInstance()->isSceneActive(static_cast<SceneID>(i)))
+			{
+				for (Model3D* Model : SceneManager::getInstance()->loadedScenes[i]) {
+					Model->draw(pos_mod, rx_mod, ry_mod, fov_mod, shaderProgram);
+				}
+			}
+		}
 
-        ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
+		ImGui_ImplOpenGL3_RenderDrawData(ImGui::GetDrawData());
 
-        /* Swap front and back buffers */
-        glfwSwapBuffers(window);
+		/* Swap front and back buffers */
+		glfwSwapBuffers(window);
 
-        /* Poll for and process events */
-        glfwPollEvents();
-    }
+		/* Poll for and process events */
+		glfwPollEvents();
+	}
 
-    glfwTerminate();
-    delete guiScreen;   // deletes guiScreen after closing bc why not
-    return 0;
+	glfwTerminate();
+	delete guiScreen;   // deletes guiScreen after closing bc why not
+	return 0;
 }
+#pragma endregion client
+
+#if IS_CLIENT
+int main(void)
+{
+    return ViewerWindow();
+}
+#else
+int main(void)
+{
+	SceneViewerServer server;
+	server.start();
+	while(true){}
+	return 0;
+}
+#endif

@@ -5,6 +5,10 @@
 #include "sceneviewer.pb.h"
 
 using namespace sceneviewer;
+using namespace std;
+
+class Model3D;
+
 class SceneViewerServer final : public SceneViewerService::Service, public IETThread
 {
 public:
@@ -14,8 +18,13 @@ public:
 	grpc::Status GetScene(grpc::ServerContext* context, const sceneviewer::SceneRequest* request, sceneviewer::Scene* response) override;
 	static void RunServer(uint16_t port);
 
+	Model3D* loadObject(SceneID index);
+	void loadObjFilePaths();
+
 	void run() override;
 private:
-
+	int objCount = 5;
+	float positionMax = 5.f;
+	vector<string> objPaths;
 };
 

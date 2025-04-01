@@ -78,58 +78,6 @@ struct SceneRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SceneRequestDefaultTypeInternal _SceneRequest_default_instance_;
 
-inline constexpr LoadProgress::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : update_{},
-        _cached_size_{0},
-        _oneof_case_{} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR LoadProgress::LoadProgress(::_pbi::ConstantInitialized)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(_class_data_.base()),
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(),
-#endif  // PROTOBUF_CUSTOM_VTABLE
-      _impl_(::_pbi::ConstantInitialized()) {
-}
-struct LoadProgressDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR LoadProgressDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~LoadProgressDefaultTypeInternal() {}
-  union {
-    LoadProgress _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoadProgressDefaultTypeInternal _LoadProgress_default_instance_;
-
-inline constexpr Vertex::Impl_::Impl_(
-    ::_pbi::ConstantInitialized) noexcept
-      : _cached_size_{0},
-        position_{nullptr},
-        normal_{nullptr} {}
-
-template <typename>
-PROTOBUF_CONSTEXPR Vertex::Vertex(::_pbi::ConstantInitialized)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(_class_data_.base()),
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(),
-#endif  // PROTOBUF_CUSTOM_VTABLE
-      _impl_(::_pbi::ConstantInitialized()) {
-}
-struct VertexDefaultTypeInternal {
-  PROTOBUF_CONSTEXPR VertexDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
-  ~VertexDefaultTypeInternal() {}
-  union {
-    Vertex _instance;
-  };
-};
-
-PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
-    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 VertexDefaultTypeInternal _Vertex_default_instance_;
-
 inline constexpr Mesh::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : vertices_{},
@@ -156,6 +104,32 @@ struct MeshDefaultTypeInternal {
 
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 MeshDefaultTypeInternal _Mesh_default_instance_;
+
+inline constexpr LoadProgress::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : update_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR LoadProgress::LoadProgress(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct LoadProgressDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LoadProgressDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LoadProgressDefaultTypeInternal() {}
+  union {
+    LoadProgress _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoadProgressDefaultTypeInternal _LoadProgress_default_instance_;
 
 inline constexpr Model::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
@@ -239,18 +213,6 @@ const ::uint32_t
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Vector3, _impl_.x_),
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Vector3, _impl_.y_),
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Vector3, _impl_.z_),
-        PROTOBUF_FIELD_OFFSET(::sceneviewer::Vertex, _impl_._has_bits_),
-        PROTOBUF_FIELD_OFFSET(::sceneviewer::Vertex, _internal_metadata_),
-        ~0u,  // no _extensions_
-        ~0u,  // no _oneof_case_
-        ~0u,  // no _weak_field_map_
-        ~0u,  // no _inlined_string_donated_
-        ~0u,  // no _split_
-        ~0u,  // no sizeof(Split)
-        PROTOBUF_FIELD_OFFSET(::sceneviewer::Vertex, _impl_.position_),
-        PROTOBUF_FIELD_OFFSET(::sceneviewer::Vertex, _impl_.normal_),
-        0,
-        1,
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Mesh, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -301,16 +263,14 @@ static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, -1, -1, sizeof(::sceneviewer::LoadProgress)},
         {12, -1, -1, sizeof(::sceneviewer::Vector3)},
-        {23, 33, -1, sizeof(::sceneviewer::Vertex)},
-        {35, -1, -1, sizeof(::sceneviewer::Mesh)},
-        {45, 57, -1, sizeof(::sceneviewer::Model)},
-        {61, -1, -1, sizeof(::sceneviewer::SceneRequest)},
-        {70, -1, -1, sizeof(::sceneviewer::Scene)},
+        {23, -1, -1, sizeof(::sceneviewer::Mesh)},
+        {33, 45, -1, sizeof(::sceneviewer::Model)},
+        {49, -1, -1, sizeof(::sceneviewer::SceneRequest)},
+        {58, -1, -1, sizeof(::sceneviewer::Scene)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::sceneviewer::_LoadProgress_default_instance_._instance,
     &::sceneviewer::_Vector3_default_instance_._instance,
-    &::sceneviewer::_Vertex_default_instance_._instance,
     &::sceneviewer::_Mesh_default_instance_._instance,
     &::sceneviewer::_Model_default_instance_._instance,
     &::sceneviewer::_SceneRequest_default_instance_._instance,
@@ -322,35 +282,32 @@ const char descriptor_table_protodef_sceneviewer_2eproto[] ABSL_ATTRIBUTE_SECTIO
     "Progress\022\027\n\rload_accepted\030\001 \001(\010H\000\022\022\n\010pro"
     "gress\030\002 \001(\002H\000\022\017\n\005ready\030\003 \001(\010H\000B\010\n\006update"
     "\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003"
-    " \001(\002\"V\n\006Vertex\022&\n\010position\030\001 \001(\0132\024.scene"
-    "viewer.Vector3\022$\n\006normal\030\002 \001(\0132\024.scenevi"
-    "ewer.Vector3\">\n\004Mesh\022%\n\010vertices\030\001 \003(\0132\023"
-    ".sceneviewer.Vertex\022\017\n\007indices\030\002 \003(\r\"\235\001\n"
-    "\005Model\022\037\n\004mesh\030\001 \001(\0132\021.sceneviewer.Mesh\022"
-    "&\n\010position\030\002 \001(\0132\024.sceneviewer.Vector3\022"
-    "&\n\010rotation\030\003 \001(\0132\024.sceneviewer.Vector3\022"
-    "#\n\005scale\030\004 \001(\0132\024.sceneviewer.Vector3\"6\n\014"
-    "SceneRequest\022&\n\010scene_id\030\001 \001(\0162\024.scenevi"
-    "ewer.SceneID\"+\n\005Scene\022\"\n\006models\030\001 \003(\0132\022."
-    "sceneviewer.Model*J\n\007SceneID\022\013\n\007SCENE_0\020"
-    "\000\022\013\n\007SCENE_1\020\001\022\013\n\007SCENE_2\020\002\022\013\n\007SCENE_3\020\003"
-    "\022\013\n\007SCENE_4\020\0042\225\001\n\022SceneViewerService\022D\n\n"
-    "StreamLoad\022\031.sceneviewer.SceneRequest\032\031."
-    "sceneviewer.LoadProgress0\001\0229\n\010GetScene\022\031"
-    ".sceneviewer.SceneRequest\032\022.sceneviewer."
-    "Sceneb\006proto3"
+    " \001(\002\")\n\004Mesh\022\020\n\010vertices\030\001 \003(\002\022\017\n\007indice"
+    "s\030\002 \003(\r\"\235\001\n\005Model\022\037\n\004mesh\030\001 \001(\0132\021.scenev"
+    "iewer.Mesh\022&\n\010position\030\002 \001(\0132\024.sceneview"
+    "er.Vector3\022&\n\010rotation\030\003 \001(\0132\024.sceneview"
+    "er.Vector3\022#\n\005scale\030\004 \001(\0132\024.sceneviewer."
+    "Vector3\"6\n\014SceneRequest\022&\n\010scene_id\030\001 \001("
+    "\0162\024.sceneviewer.SceneID\"+\n\005Scene\022\"\n\006mode"
+    "ls\030\001 \003(\0132\022.sceneviewer.Model*J\n\007SceneID\022"
+    "\013\n\007SCENE_0\020\000\022\013\n\007SCENE_1\020\001\022\013\n\007SCENE_2\020\002\022\013"
+    "\n\007SCENE_3\020\003\022\013\n\007SCENE_4\020\0042\225\001\n\022SceneViewer"
+    "Service\022D\n\nStreamLoad\022\031.sceneviewer.Scen"
+    "eRequest\032\031.sceneviewer.LoadProgress0\001\0229\n"
+    "\010GetScene\022\031.sceneviewer.SceneRequest\032\022.s"
+    "ceneviewer.Sceneb\006proto3"
 };
 static ::absl::once_flag descriptor_table_sceneviewer_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_sceneviewer_2eproto = {
     false,
     false,
-    813,
+    704,
     descriptor_table_protodef_sceneviewer_2eproto,
     "sceneviewer.proto",
     &descriptor_table_sceneviewer_2eproto_once,
     nullptr,
     0,
-    7,
+    6,
     schemas,
     file_default_instances,
     TableStruct_sceneviewer_2eproto::offsets,
@@ -954,307 +911,6 @@ void Vector3::InternalSwap(Vector3* PROTOBUF_RESTRICT other) {
 }
 // ===================================================================
 
-class Vertex::_Internal {
- public:
-  using HasBits =
-      decltype(std::declval<Vertex>()._impl_._has_bits_);
-  static constexpr ::int32_t kHasBitsOffset =
-      8 * PROTOBUF_FIELD_OFFSET(Vertex, _impl_._has_bits_);
-};
-
-Vertex::Vertex(::google::protobuf::Arena* arena)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  SharedCtor(arena);
-  // @@protoc_insertion_point(arena_constructor:sceneviewer.Vertex)
-}
-inline PROTOBUF_NDEBUG_INLINE Vertex::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
-    const Impl_& from, const ::sceneviewer::Vertex& from_msg)
-      : _has_bits_{from._has_bits_},
-        _cached_size_{0} {}
-
-Vertex::Vertex(
-    ::google::protobuf::Arena* arena,
-    const Vertex& from)
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-    : ::google::protobuf::Message(arena, _class_data_.base()) {
-#else   // PROTOBUF_CUSTOM_VTABLE
-    : ::google::protobuf::Message(arena) {
-#endif  // PROTOBUF_CUSTOM_VTABLE
-  Vertex* const _this = this;
-  (void)_this;
-  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
-      from._internal_metadata_);
-  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
-  ::uint32_t cached_has_bits = _impl_._has_bits_[0];
-  _impl_.position_ = (cached_has_bits & 0x00000001u) ? ::google::protobuf::Message::CopyConstruct<::sceneviewer::Vector3>(
-                              arena, *from._impl_.position_)
-                        : nullptr;
-  _impl_.normal_ = (cached_has_bits & 0x00000002u) ? ::google::protobuf::Message::CopyConstruct<::sceneviewer::Vector3>(
-                              arena, *from._impl_.normal_)
-                        : nullptr;
-
-  // @@protoc_insertion_point(copy_constructor:sceneviewer.Vertex)
-}
-inline PROTOBUF_NDEBUG_INLINE Vertex::Impl_::Impl_(
-    ::google::protobuf::internal::InternalVisibility visibility,
-    ::google::protobuf::Arena* arena)
-      : _cached_size_{0} {}
-
-inline void Vertex::SharedCtor(::_pb::Arena* arena) {
-  new (&_impl_) Impl_(internal_visibility(), arena);
-  ::memset(reinterpret_cast<char *>(&_impl_) +
-               offsetof(Impl_, position_),
-           0,
-           offsetof(Impl_, normal_) -
-               offsetof(Impl_, position_) +
-               sizeof(Impl_::normal_));
-}
-Vertex::~Vertex() {
-  // @@protoc_insertion_point(destructor:sceneviewer.Vertex)
-  SharedDtor(*this);
-}
-inline void Vertex::SharedDtor(MessageLite& self) {
-  Vertex& this_ = static_cast<Vertex&>(self);
-  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
-  ABSL_DCHECK(this_.GetArena() == nullptr);
-  delete this_._impl_.position_;
-  delete this_._impl_.normal_;
-  this_._impl_.~Impl_();
-}
-
-inline void* Vertex::PlacementNew_(const void*, void* mem,
-                                        ::google::protobuf::Arena* arena) {
-  return ::new (mem) Vertex(arena);
-}
-constexpr auto Vertex::InternalNewImpl_() {
-  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(Vertex),
-                                            alignof(Vertex));
-}
-PROTOBUF_CONSTINIT
-PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::google::protobuf::internal::ClassDataFull Vertex::_class_data_ = {
-    ::google::protobuf::internal::ClassData{
-        &_Vertex_default_instance_._instance,
-        &_table_.header,
-        nullptr,  // OnDemandRegisterArenaDtor
-        nullptr,  // IsInitialized
-        &Vertex::MergeImpl,
-        ::google::protobuf::Message::GetNewImpl<Vertex>(),
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        &Vertex::SharedDtor,
-        ::google::protobuf::Message::GetClearImpl<Vertex>(), &Vertex::ByteSizeLong,
-            &Vertex::_InternalSerialize,
-#endif  // PROTOBUF_CUSTOM_VTABLE
-        PROTOBUF_FIELD_OFFSET(Vertex, _impl_._cached_size_),
-        false,
-    },
-    &Vertex::kDescriptorMethods,
-    &descriptor_table_sceneviewer_2eproto,
-    nullptr,  // tracker
-};
-const ::google::protobuf::internal::ClassData* Vertex::GetClassData() const {
-  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
-  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
-  return _class_data_.base();
-}
-PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 2, 0, 2> Vertex::_table_ = {
-  {
-    PROTOBUF_FIELD_OFFSET(Vertex, _impl_._has_bits_),
-    0, // no _extensions_
-    2, 8,  // max_field_number, fast_idx_mask
-    offsetof(decltype(_table_), field_lookup_table),
-    4294967292,  // skipmap
-    offsetof(decltype(_table_), field_entries),
-    2,  // num_field_entries
-    2,  // num_aux_entries
-    offsetof(decltype(_table_), aux_entries),
-    _class_data_.base(),
-    nullptr,  // post_loop_handler
-    ::_pbi::TcParser::GenericFallback,  // fallback
-    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
-    ::_pbi::TcParser::GetTable<::sceneviewer::Vertex>(),  // to_prefetch
-    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
-  }, {{
-    // .sceneviewer.Vector3 normal = 2;
-    {::_pbi::TcParser::FastMtS1,
-     {18, 1, 1, PROTOBUF_FIELD_OFFSET(Vertex, _impl_.normal_)}},
-    // .sceneviewer.Vector3 position = 1;
-    {::_pbi::TcParser::FastMtS1,
-     {10, 0, 0, PROTOBUF_FIELD_OFFSET(Vertex, _impl_.position_)}},
-  }}, {{
-    65535, 65535
-  }}, {{
-    // .sceneviewer.Vector3 position = 1;
-    {PROTOBUF_FIELD_OFFSET(Vertex, _impl_.position_), _Internal::kHasBitsOffset + 0, 0,
-    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-    // .sceneviewer.Vector3 normal = 2;
-    {PROTOBUF_FIELD_OFFSET(Vertex, _impl_.normal_), _Internal::kHasBitsOffset + 1, 1,
-    (0 | ::_fl::kFcOptional | ::_fl::kMessage | ::_fl::kTvTable)},
-  }}, {{
-    {::_pbi::TcParser::GetTable<::sceneviewer::Vector3>()},
-    {::_pbi::TcParser::GetTable<::sceneviewer::Vector3>()},
-  }}, {{
-  }},
-};
-
-PROTOBUF_NOINLINE void Vertex::Clear() {
-// @@protoc_insertion_point(message_clear_start:sceneviewer.Vertex)
-  ::google::protobuf::internal::TSanWrite(&_impl_);
-  ::uint32_t cached_has_bits = 0;
-  // Prevent compiler warnings about cached_has_bits being unused
-  (void) cached_has_bits;
-
-  cached_has_bits = _impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      ABSL_DCHECK(_impl_.position_ != nullptr);
-      _impl_.position_->Clear();
-    }
-    if (cached_has_bits & 0x00000002u) {
-      ABSL_DCHECK(_impl_.normal_ != nullptr);
-      _impl_.normal_->Clear();
-    }
-  }
-  _impl_._has_bits_.Clear();
-  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
-}
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::uint8_t* Vertex::_InternalSerialize(
-            const MessageLite& base, ::uint8_t* target,
-            ::google::protobuf::io::EpsCopyOutputStream* stream) {
-          const Vertex& this_ = static_cast<const Vertex&>(base);
-#else   // PROTOBUF_CUSTOM_VTABLE
-        ::uint8_t* Vertex::_InternalSerialize(
-            ::uint8_t* target,
-            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
-          const Vertex& this_ = *this;
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(serialize_to_array_start:sceneviewer.Vertex)
-          ::uint32_t cached_has_bits = 0;
-          (void)cached_has_bits;
-
-          cached_has_bits = this_._impl_._has_bits_[0];
-          // .sceneviewer.Vector3 position = 1;
-          if (cached_has_bits & 0x00000001u) {
-            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-                1, *this_._impl_.position_, this_._impl_.position_->GetCachedSize(), target,
-                stream);
-          }
-
-          // .sceneviewer.Vector3 normal = 2;
-          if (cached_has_bits & 0x00000002u) {
-            target = ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-                2, *this_._impl_.normal_, this_._impl_.normal_->GetCachedSize(), target,
-                stream);
-          }
-
-          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
-            target =
-                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
-                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
-          }
-          // @@protoc_insertion_point(serialize_to_array_end:sceneviewer.Vertex)
-          return target;
-        }
-
-#if defined(PROTOBUF_CUSTOM_VTABLE)
-        ::size_t Vertex::ByteSizeLong(const MessageLite& base) {
-          const Vertex& this_ = static_cast<const Vertex&>(base);
-#else   // PROTOBUF_CUSTOM_VTABLE
-        ::size_t Vertex::ByteSizeLong() const {
-          const Vertex& this_ = *this;
-#endif  // PROTOBUF_CUSTOM_VTABLE
-          // @@protoc_insertion_point(message_byte_size_start:sceneviewer.Vertex)
-          ::size_t total_size = 0;
-
-          ::uint32_t cached_has_bits = 0;
-          // Prevent compiler warnings about cached_has_bits being unused
-          (void)cached_has_bits;
-
-          ::_pbi::Prefetch5LinesFrom7Lines(&this_);
-          cached_has_bits = this_._impl_._has_bits_[0];
-          if (cached_has_bits & 0x00000003u) {
-            // .sceneviewer.Vector3 position = 1;
-            if (cached_has_bits & 0x00000001u) {
-              total_size += 1 +
-                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.position_);
-            }
-            // .sceneviewer.Vector3 normal = 2;
-            if (cached_has_bits & 0x00000002u) {
-              total_size += 1 +
-                            ::google::protobuf::internal::WireFormatLite::MessageSize(*this_._impl_.normal_);
-            }
-          }
-          return this_.MaybeComputeUnknownFieldsSize(total_size,
-                                                     &this_._impl_._cached_size_);
-        }
-
-void Vertex::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
-  auto* const _this = static_cast<Vertex*>(&to_msg);
-  auto& from = static_cast<const Vertex&>(from_msg);
-  ::google::protobuf::Arena* arena = _this->GetArena();
-  // @@protoc_insertion_point(class_specific_merge_from_start:sceneviewer.Vertex)
-  ABSL_DCHECK_NE(&from, _this);
-  ::uint32_t cached_has_bits = 0;
-  (void) cached_has_bits;
-
-  cached_has_bits = from._impl_._has_bits_[0];
-  if (cached_has_bits & 0x00000003u) {
-    if (cached_has_bits & 0x00000001u) {
-      ABSL_DCHECK(from._impl_.position_ != nullptr);
-      if (_this->_impl_.position_ == nullptr) {
-        _this->_impl_.position_ =
-            ::google::protobuf::Message::CopyConstruct<::sceneviewer::Vector3>(arena, *from._impl_.position_);
-      } else {
-        _this->_impl_.position_->MergeFrom(*from._impl_.position_);
-      }
-    }
-    if (cached_has_bits & 0x00000002u) {
-      ABSL_DCHECK(from._impl_.normal_ != nullptr);
-      if (_this->_impl_.normal_ == nullptr) {
-        _this->_impl_.normal_ =
-            ::google::protobuf::Message::CopyConstruct<::sceneviewer::Vector3>(arena, *from._impl_.normal_);
-      } else {
-        _this->_impl_.normal_->MergeFrom(*from._impl_.normal_);
-      }
-    }
-  }
-  _this->_impl_._has_bits_[0] |= cached_has_bits;
-  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
-}
-
-void Vertex::CopyFrom(const Vertex& from) {
-// @@protoc_insertion_point(class_specific_copy_from_start:sceneviewer.Vertex)
-  if (&from == this) return;
-  Clear();
-  MergeFrom(from);
-}
-
-
-void Vertex::InternalSwap(Vertex* PROTOBUF_RESTRICT other) {
-  using std::swap;
-  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
-  swap(_impl_._has_bits_[0], other->_impl_._has_bits_[0]);
-  ::google::protobuf::internal::memswap<
-      PROTOBUF_FIELD_OFFSET(Vertex, _impl_.normal_)
-      + sizeof(Vertex::_impl_.normal_)
-      - PROTOBUF_FIELD_OFFSET(Vertex, _impl_.position_)>(
-          reinterpret_cast<char*>(&_impl_.position_),
-          reinterpret_cast<char*>(&other->_impl_.position_));
-}
-
-::google::protobuf::Metadata Vertex::GetMetadata() const {
-  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
-}
-// ===================================================================
-
 class Mesh::_Internal {
  public:
 };
@@ -1366,7 +1022,7 @@ const ::google::protobuf::internal::ClassData* Mesh::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<1, 2, 1, 0, 2> Mesh::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 0, 0, 2> Mesh::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
@@ -1375,8 +1031,8 @@ const ::_pbi::TcParseTable<1, 2, 1, 0, 2> Mesh::_table_ = {
     4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
     2,  // num_field_entries
-    1,  // num_aux_entries
-    offsetof(decltype(_table_), aux_entries),
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
     _class_data_.base(),
     nullptr,  // post_loop_handler
     ::_pbi::TcParser::GenericFallback,  // fallback
@@ -1387,21 +1043,21 @@ const ::_pbi::TcParseTable<1, 2, 1, 0, 2> Mesh::_table_ = {
     // repeated uint32 indices = 2;
     {::_pbi::TcParser::FastV32P1,
      {18, 63, 0, PROTOBUF_FIELD_OFFSET(Mesh, _impl_.indices_)}},
-    // repeated .sceneviewer.Vertex vertices = 1;
-    {::_pbi::TcParser::FastMtR1,
+    // repeated float vertices = 1;
+    {::_pbi::TcParser::FastF32P1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(Mesh, _impl_.vertices_)}},
   }}, {{
     65535, 65535
   }}, {{
-    // repeated .sceneviewer.Vertex vertices = 1;
+    // repeated float vertices = 1;
     {PROTOBUF_FIELD_OFFSET(Mesh, _impl_.vertices_), 0, 0,
-    (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    (0 | ::_fl::kFcRepeated | ::_fl::kPackedFloat)},
     // repeated uint32 indices = 2;
     {PROTOBUF_FIELD_OFFSET(Mesh, _impl_.indices_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kPackedUInt32)},
-  }}, {{
-    {::_pbi::TcParser::GetTable<::sceneviewer::Vertex>()},
-  }}, {{
+  }},
+  // no aux_entries
+  {{
   }},
 };
 
@@ -1432,15 +1088,9 @@ PROTOBUF_NOINLINE void Mesh::Clear() {
           ::uint32_t cached_has_bits = 0;
           (void)cached_has_bits;
 
-          // repeated .sceneviewer.Vertex vertices = 1;
-          for (unsigned i = 0, n = static_cast<unsigned>(
-                                   this_._internal_vertices_size());
-               i < n; i++) {
-            const auto& repfield = this_._internal_vertices().Get(i);
-            target =
-                ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
-                    1, repfield, repfield.GetCachedSize(),
-                    target, stream);
+          // repeated float vertices = 1;
+          if (this_._internal_vertices_size() > 0) {
+            target = stream->WriteFixedPacked(1, this_._internal_vertices(), target);
           }
 
           // repeated uint32 indices = 2;
@@ -1477,12 +1127,15 @@ PROTOBUF_NOINLINE void Mesh::Clear() {
 
           ::_pbi::Prefetch5LinesFrom7Lines(&this_);
            {
-            // repeated .sceneviewer.Vertex vertices = 1;
+            // repeated float vertices = 1;
             {
-              total_size += 1UL * this_._internal_vertices_size();
-              for (const auto& msg : this_._internal_vertices()) {
-                total_size += ::google::protobuf::internal::WireFormatLite::MessageSize(msg);
-              }
+              std::size_t data_size = std::size_t{4} *
+                  ::_pbi::FromIntSize(this_._internal_vertices_size());
+              std::size_t tag_size = data_size == 0
+                  ? 0
+                  : 1 + ::_pbi::WireFormatLite::Int32Size(
+                                      static_cast<int32_t>(data_size));
+              total_size += tag_size + data_size;
             }
             // repeated uint32 indices = 2;
             {
@@ -1504,8 +1157,7 @@ void Mesh::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::pr
   ::uint32_t cached_has_bits = 0;
   (void) cached_has_bits;
 
-  _this->_internal_mutable_vertices()->MergeFrom(
-      from._internal_vertices());
+  _this->_internal_mutable_vertices()->MergeFrom(from._internal_vertices());
   _this->_internal_mutable_indices()->MergeFrom(from._internal_indices());
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
