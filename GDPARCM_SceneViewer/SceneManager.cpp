@@ -1,4 +1,5 @@
 #include "SceneManager.h"
+#include "Model3D.h"
 
 SceneManager* SceneManager::sharedInstance = nullptr;
 
@@ -14,47 +15,68 @@ SceneManager* SceneManager::getInstance()
 
 SceneManager::SceneManager()
 {
-	progress = { 0,0,0,0,0 };
-	loadedScenes = { {},{},{},{},{} };
-	sceneActive = { true,false,false,false,false };
+	for(int i = 0; i < 5; i++)
+	{
+		progress.push_back(0);
+		loadedScenes.emplace_back();
+		sceneActive.push_back(false);
+		loadingGuard.push_back(new mutex());
+	}
 }
 
-
-void SceneManager::setProgress(int index, float value)
+void SceneManager::setProgress(SceneID index, float value)
 {
+	this->progressGuard.lock();
 	this->progress[index] = value;
+	this->progressGuard.unlock();
 }
 
-float SceneManager::getProgress(int index)
+float SceneManager::getProgress(SceneID index)
 {
 	return this->progress[index];
 }
 
-void SceneManager::loadScene(int index, SceneLocal scene)
+void SceneManager::loadScene(SceneID index, SceneLocal scene)
 {
-	/*for(Model3D* model : this->loadedScenes[index])
+	this->sceneGuard.lock();
+	for(Model3D* model : this->loadedScenes[index])
 	{
 		delete model;
-	}*/
+	}
 	this->loadedScenes[index].clear();
 	for(Model3D* model : scene)
 	{
 		this->loadedScenes[index].push_back(model);
 	}
+	this->sceneGuard.unlock();
 }
 
-SceneLocal SceneManager::getScene(int index)
+SceneLocal SceneManager::getScene(SceneID index)
 {
 	return this->loadedScenes[index];
 }
 
-void SceneManager::setSceneActive(int index, bool value)
+void SceneManager::setSceneActive(SceneID index, bool value)
 {
 	this->sceneActive[index] = value;
 }
 
-bool SceneManager::isSceneActive(int index)
+bool SceneManager::isSceneActive(SceneID index)
 {
 	return this->sceneActive[index];
+}
+
+bool SceneManager::registerLoadScene(SceneID index)
+{
+	if(this->loadingGuard[index]->try_lock())
+	{
+		return true;
+	}
+	return false;
+}
+
+void SceneManager::reportDoneScene(SceneID index)
+{
+	this->loadingGuard[index]->unlock();
 }
 

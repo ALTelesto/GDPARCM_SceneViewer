@@ -22,6 +22,7 @@
 namespace sceneviewer {
 
 static const char* SceneViewerService_method_names[] = {
+  "/sceneviewer.SceneViewerService/StreamLoad",
   "/sceneviewer.SceneViewerService/GetScene",
 };
 
@@ -32,8 +33,25 @@ std::unique_ptr< SceneViewerService::Stub> SceneViewerService::NewStub(const std
 }
 
 SceneViewerService::Stub::Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options)
-  : channel_(channel), rpcmethod_GetScene_(SceneViewerService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
+  : channel_(channel), rpcmethod_StreamLoad_(SceneViewerService_method_names[0], options.suffix_for_stats(),::grpc::internal::RpcMethod::SERVER_STREAMING, channel)
+  , rpcmethod_GetScene_(SceneViewerService_method_names[1], options.suffix_for_stats(),::grpc::internal::RpcMethod::NORMAL_RPC, channel)
   {}
+
+::grpc::ClientReader< ::sceneviewer::LoadProgress>* SceneViewerService::Stub::StreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request) {
+  return ::grpc::internal::ClientReaderFactory< ::sceneviewer::LoadProgress>::Create(channel_.get(), rpcmethod_StreamLoad_, context, request);
+}
+
+void SceneViewerService::Stub::async::StreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::grpc::ClientReadReactor< ::sceneviewer::LoadProgress>* reactor) {
+  ::grpc::internal::ClientCallbackReaderFactory< ::sceneviewer::LoadProgress>::Create(stub_->channel_.get(), stub_->rpcmethod_StreamLoad_, context, request, reactor);
+}
+
+::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>* SceneViewerService::Stub::AsyncStreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+  return ::grpc::internal::ClientAsyncReaderFactory< ::sceneviewer::LoadProgress>::Create(channel_.get(), cq, rpcmethod_StreamLoad_, context, request, true, tag);
+}
+
+::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>* SceneViewerService::Stub::PrepareAsyncStreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) {
+  return ::grpc::internal::ClientAsyncReaderFactory< ::sceneviewer::LoadProgress>::Create(channel_.get(), cq, rpcmethod_StreamLoad_, context, request, false, nullptr);
+}
 
 ::grpc::Status SceneViewerService::Stub::GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::sceneviewer::Scene* response) {
   return ::grpc::internal::BlockingUnaryCall< ::sceneviewer::SceneRequest, ::sceneviewer::Scene, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(channel_.get(), rpcmethod_GetScene_, context, request, response);
@@ -61,6 +79,16 @@ void SceneViewerService::Stub::async::GetScene(::grpc::ClientContext* context, c
 SceneViewerService::Service::Service() {
   AddMethod(new ::grpc::internal::RpcServiceMethod(
       SceneViewerService_method_names[0],
+      ::grpc::internal::RpcMethod::SERVER_STREAMING,
+      new ::grpc::internal::ServerStreamingHandler< SceneViewerService::Service, ::sceneviewer::SceneRequest, ::sceneviewer::LoadProgress>(
+          [](SceneViewerService::Service* service,
+             ::grpc::ServerContext* ctx,
+             const ::sceneviewer::SceneRequest* req,
+             ::grpc::ServerWriter<::sceneviewer::LoadProgress>* writer) {
+               return service->StreamLoad(ctx, req, writer);
+             }, this)));
+  AddMethod(new ::grpc::internal::RpcServiceMethod(
+      SceneViewerService_method_names[1],
       ::grpc::internal::RpcMethod::NORMAL_RPC,
       new ::grpc::internal::RpcMethodHandler< SceneViewerService::Service, ::sceneviewer::SceneRequest, ::sceneviewer::Scene, ::grpc::protobuf::MessageLite, ::grpc::protobuf::MessageLite>(
           [](SceneViewerService::Service* service,
@@ -72,6 +100,13 @@ SceneViewerService::Service::Service() {
 }
 
 SceneViewerService::Service::~Service() {
+}
+
+::grpc::Status SceneViewerService::Service::StreamLoad(::grpc::ServerContext* context, const ::sceneviewer::SceneRequest* request, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* writer) {
+  (void) context;
+  (void) request;
+  (void) writer;
+  return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
 }
 
 ::grpc::Status SceneViewerService::Service::GetScene(::grpc::ServerContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response) {

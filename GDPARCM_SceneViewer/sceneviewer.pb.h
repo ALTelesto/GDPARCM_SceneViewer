@@ -53,6 +53,9 @@ struct TableStruct_sceneviewer_2eproto {
 extern const ::google::protobuf::internal::DescriptorTable
     descriptor_table_sceneviewer_2eproto;
 namespace sceneviewer {
+class LoadProgress;
+struct LoadProgressDefaultTypeInternal;
+extern LoadProgressDefaultTypeInternal _LoadProgress_default_instance_;
 class Mesh;
 struct MeshDefaultTypeInternal;
 extern MeshDefaultTypeInternal _Mesh_default_instance_;
@@ -179,7 +182,7 @@ class Vector3 final : public ::google::protobuf::Message
     return reinterpret_cast<const Vector3*>(
         &_Vector3_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 0;
+  static constexpr int kIndexInFileMessages = 1;
   friend void swap(Vector3& a, Vector3& b) { a.Swap(&b); }
   inline void Swap(Vector3* other) {
     if (other == this) return;
@@ -393,7 +396,7 @@ class SceneRequest final : public ::google::protobuf::Message
     return reinterpret_cast<const SceneRequest*>(
         &_SceneRequest_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 4;
+  static constexpr int kIndexInFileMessages = 5;
   friend void swap(SceneRequest& a, SceneRequest& b) { a.Swap(&b); }
   inline void Swap(SceneRequest* other) {
     if (other == this) return;
@@ -524,6 +527,241 @@ class SceneRequest final : public ::google::protobuf::Message
 };
 // -------------------------------------------------------------------
 
+class LoadProgress final : public ::google::protobuf::Message
+/* @@protoc_insertion_point(class_definition:sceneviewer.LoadProgress) */ {
+ public:
+  inline LoadProgress() : LoadProgress(nullptr) {}
+  ~LoadProgress() PROTOBUF_FINAL;
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+  void operator delete(LoadProgress* msg, std::destroying_delete_t) {
+    SharedDtor(*msg);
+    ::google::protobuf::internal::SizedDelete(msg, sizeof(LoadProgress));
+  }
+#endif
+
+  template <typename = void>
+  explicit PROTOBUF_CONSTEXPR LoadProgress(
+      ::google::protobuf::internal::ConstantInitialized);
+
+  inline LoadProgress(const LoadProgress& from) : LoadProgress(nullptr, from) {}
+  inline LoadProgress(LoadProgress&& from) noexcept
+      : LoadProgress(nullptr, std::move(from)) {}
+  inline LoadProgress& operator=(const LoadProgress& from) {
+    CopyFrom(from);
+    return *this;
+  }
+  inline LoadProgress& operator=(LoadProgress&& from) noexcept {
+    if (this == &from) return *this;
+    if (::google::protobuf::internal::CanMoveWithInternalSwap(GetArena(), from.GetArena())) {
+      InternalSwap(&from);
+    } else {
+      CopyFrom(from);
+    }
+    return *this;
+  }
+
+  inline const ::google::protobuf::UnknownFieldSet& unknown_fields() const
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance);
+  }
+  inline ::google::protobuf::UnknownFieldSet* mutable_unknown_fields()
+      ABSL_ATTRIBUTE_LIFETIME_BOUND {
+    return _internal_metadata_.mutable_unknown_fields<::google::protobuf::UnknownFieldSet>();
+  }
+
+  static const ::google::protobuf::Descriptor* descriptor() {
+    return GetDescriptor();
+  }
+  static const ::google::protobuf::Descriptor* GetDescriptor() {
+    return default_instance().GetMetadata().descriptor;
+  }
+  static const ::google::protobuf::Reflection* GetReflection() {
+    return default_instance().GetMetadata().reflection;
+  }
+  static const LoadProgress& default_instance() {
+    return *internal_default_instance();
+  }
+  enum UpdateCase {
+    kLoadAccepted = 1,
+    kProgress = 2,
+    kReady = 3,
+    UPDATE_NOT_SET = 0,
+  };
+  static inline const LoadProgress* internal_default_instance() {
+    return reinterpret_cast<const LoadProgress*>(
+        &_LoadProgress_default_instance_);
+  }
+  static constexpr int kIndexInFileMessages = 0;
+  friend void swap(LoadProgress& a, LoadProgress& b) { a.Swap(&b); }
+  inline void Swap(LoadProgress* other) {
+    if (other == this) return;
+    if (::google::protobuf::internal::CanUseInternalSwap(GetArena(), other->GetArena())) {
+      InternalSwap(other);
+    } else {
+      ::google::protobuf::internal::GenericSwap(this, other);
+    }
+  }
+  void UnsafeArenaSwap(LoadProgress* other) {
+    if (other == this) return;
+    ABSL_DCHECK(GetArena() == other->GetArena());
+    InternalSwap(other);
+  }
+
+  // implements Message ----------------------------------------------
+
+  LoadProgress* New(::google::protobuf::Arena* arena = nullptr) const {
+    return ::google::protobuf::Message::DefaultConstruct<LoadProgress>(arena);
+  }
+  using ::google::protobuf::Message::CopyFrom;
+  void CopyFrom(const LoadProgress& from);
+  using ::google::protobuf::Message::MergeFrom;
+  void MergeFrom(const LoadProgress& from) { LoadProgress::MergeImpl(*this, from); }
+
+  private:
+  static void MergeImpl(
+      ::google::protobuf::MessageLite& to_msg,
+      const ::google::protobuf::MessageLite& from_msg);
+
+  public:
+  bool IsInitialized() const {
+    return true;
+  }
+  ABSL_ATTRIBUTE_REINITIALIZES void Clear() PROTOBUF_FINAL;
+  #if defined(PROTOBUF_CUSTOM_VTABLE)
+  private:
+  static ::size_t ByteSizeLong(const ::google::protobuf::MessageLite& msg);
+  static ::uint8_t* _InternalSerialize(
+      const MessageLite& msg, ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream);
+
+  public:
+  ::size_t ByteSizeLong() const { return ByteSizeLong(*this); }
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+    return _InternalSerialize(*this, target, stream);
+  }
+  #else   // PROTOBUF_CUSTOM_VTABLE
+  ::size_t ByteSizeLong() const final;
+  ::uint8_t* _InternalSerialize(
+      ::uint8_t* target,
+      ::google::protobuf::io::EpsCopyOutputStream* stream) const final;
+  #endif  // PROTOBUF_CUSTOM_VTABLE
+  int GetCachedSize() const { return _impl_._cached_size_.Get(); }
+
+  private:
+  void SharedCtor(::google::protobuf::Arena* arena);
+  static void SharedDtor(MessageLite& self);
+  void InternalSwap(LoadProgress* other);
+ private:
+  template <typename T>
+  friend ::absl::string_view(
+      ::google::protobuf::internal::GetAnyMessageName)();
+  static ::absl::string_view FullMessageName() { return "sceneviewer.LoadProgress"; }
+
+ protected:
+  explicit LoadProgress(::google::protobuf::Arena* arena);
+  LoadProgress(::google::protobuf::Arena* arena, const LoadProgress& from);
+  LoadProgress(::google::protobuf::Arena* arena, LoadProgress&& from) noexcept
+      : LoadProgress(arena) {
+    *this = ::std::move(from);
+  }
+  const ::google::protobuf::internal::ClassData* GetClassData() const PROTOBUF_FINAL;
+  static void* PlacementNew_(const void*, void* mem,
+                             ::google::protobuf::Arena* arena);
+  static constexpr auto InternalNewImpl_();
+  static const ::google::protobuf::internal::ClassDataFull _class_data_;
+
+ public:
+  ::google::protobuf::Metadata GetMetadata() const;
+  // nested types ----------------------------------------------------
+
+  // accessors -------------------------------------------------------
+  enum : int {
+    kLoadAcceptedFieldNumber = 1,
+    kProgressFieldNumber = 2,
+    kReadyFieldNumber = 3,
+  };
+  // bool load_accepted = 1;
+  bool has_load_accepted() const;
+  void clear_load_accepted() ;
+  bool load_accepted() const;
+  void set_load_accepted(bool value);
+
+  private:
+  bool _internal_load_accepted() const;
+  void _internal_set_load_accepted(bool value);
+
+  public:
+  // float progress = 2;
+  bool has_progress() const;
+  void clear_progress() ;
+  float progress() const;
+  void set_progress(float value);
+
+  private:
+  float _internal_progress() const;
+  void _internal_set_progress(float value);
+
+  public:
+  // bool ready = 3;
+  bool has_ready() const;
+  void clear_ready() ;
+  bool ready() const;
+  void set_ready(bool value);
+
+  private:
+  bool _internal_ready() const;
+  void _internal_set_ready(bool value);
+
+  public:
+  void clear_update();
+  UpdateCase update_case() const;
+  // @@protoc_insertion_point(class_scope:sceneviewer.LoadProgress)
+ private:
+  class _Internal;
+  void set_has_load_accepted();
+  void set_has_progress();
+  void set_has_ready();
+  inline bool has_update() const;
+  inline void clear_has_update();
+  friend class ::google::protobuf::internal::TcParser;
+  static const ::google::protobuf::internal::TcParseTable<
+      0, 3, 0,
+      0, 2>
+      _table_;
+
+  friend class ::google::protobuf::MessageLite;
+  friend class ::google::protobuf::Arena;
+  template <typename T>
+  friend class ::google::protobuf::Arena::InternalHelper;
+  using InternalArenaConstructable_ = void;
+  using DestructorSkippable_ = void;
+  struct Impl_ {
+    inline explicit constexpr Impl_(
+        ::google::protobuf::internal::ConstantInitialized) noexcept;
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena);
+    inline explicit Impl_(::google::protobuf::internal::InternalVisibility visibility,
+                          ::google::protobuf::Arena* arena, const Impl_& from,
+                          const LoadProgress& from_msg);
+    union UpdateUnion {
+      constexpr UpdateUnion() : _constinit_{} {}
+      ::google::protobuf::internal::ConstantInitialized _constinit_;
+      bool load_accepted_;
+      float progress_;
+      bool ready_;
+    } update_;
+    ::google::protobuf::internal::CachedSize _cached_size_;
+    ::uint32_t _oneof_case_[1];
+    PROTOBUF_TSAN_DECLARE_MEMBER
+  };
+  union { Impl_ _impl_; };
+  friend struct ::TableStruct_sceneviewer_2eproto;
+};
+// -------------------------------------------------------------------
+
 class Vertex final : public ::google::protobuf::Message
 /* @@protoc_insertion_point(class_definition:sceneviewer.Vertex) */ {
  public:
@@ -583,7 +821,7 @@ class Vertex final : public ::google::protobuf::Message
     return reinterpret_cast<const Vertex*>(
         &_Vertex_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 1;
+  static constexpr int kIndexInFileMessages = 2;
   friend void swap(Vertex& a, Vertex& b) { a.Swap(&b); }
   inline void Swap(Vertex* other) {
     if (other == this) return;
@@ -796,7 +1034,7 @@ class Mesh final : public ::google::protobuf::Message
     return reinterpret_cast<const Mesh*>(
         &_Mesh_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 2;
+  static constexpr int kIndexInFileMessages = 3;
   friend void swap(Mesh& a, Mesh& b) { a.Swap(&b); }
   inline void Swap(Mesh* other) {
     if (other == this) return;
@@ -1014,7 +1252,7 @@ class Model final : public ::google::protobuf::Message
     return reinterpret_cast<const Model*>(
         &_Model_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 3;
+  static constexpr int kIndexInFileMessages = 4;
   friend void swap(Model& a, Model& b) { a.Swap(&b); }
   inline void Swap(Model* other) {
     if (other == this) return;
@@ -1261,7 +1499,7 @@ class Scene final : public ::google::protobuf::Message
     return reinterpret_cast<const Scene*>(
         &_Scene_default_instance_);
   }
-  static constexpr int kIndexInFileMessages = 5;
+  static constexpr int kIndexInFileMessages = 6;
   friend void swap(Scene& a, Scene& b) { a.Swap(&b); }
   inline void Swap(Scene* other) {
     if (other == this) return;
@@ -1410,6 +1648,118 @@ class Scene final : public ::google::protobuf::Message
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wstrict-aliasing"
 #endif  // __GNUC__
+// -------------------------------------------------------------------
+
+// LoadProgress
+
+// bool load_accepted = 1;
+inline bool LoadProgress::has_load_accepted() const {
+  return update_case() == kLoadAccepted;
+}
+inline void LoadProgress::set_has_load_accepted() {
+  _impl_._oneof_case_[0] = kLoadAccepted;
+}
+inline void LoadProgress::clear_load_accepted() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (update_case() == kLoadAccepted) {
+    _impl_.update_.load_accepted_ = false;
+    clear_has_update();
+  }
+}
+inline bool LoadProgress::load_accepted() const {
+  // @@protoc_insertion_point(field_get:sceneviewer.LoadProgress.load_accepted)
+  return _internal_load_accepted();
+}
+inline void LoadProgress::set_load_accepted(bool value) {
+  if (update_case() != kLoadAccepted) {
+    clear_update();
+    set_has_load_accepted();
+  }
+  _impl_.update_.load_accepted_ = value;
+  // @@protoc_insertion_point(field_set:sceneviewer.LoadProgress.load_accepted)
+}
+inline bool LoadProgress::_internal_load_accepted() const {
+  if (update_case() == kLoadAccepted) {
+    return _impl_.update_.load_accepted_;
+  }
+  return false;
+}
+
+// float progress = 2;
+inline bool LoadProgress::has_progress() const {
+  return update_case() == kProgress;
+}
+inline void LoadProgress::set_has_progress() {
+  _impl_._oneof_case_[0] = kProgress;
+}
+inline void LoadProgress::clear_progress() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (update_case() == kProgress) {
+    _impl_.update_.progress_ = 0;
+    clear_has_update();
+  }
+}
+inline float LoadProgress::progress() const {
+  // @@protoc_insertion_point(field_get:sceneviewer.LoadProgress.progress)
+  return _internal_progress();
+}
+inline void LoadProgress::set_progress(float value) {
+  if (update_case() != kProgress) {
+    clear_update();
+    set_has_progress();
+  }
+  _impl_.update_.progress_ = value;
+  // @@protoc_insertion_point(field_set:sceneviewer.LoadProgress.progress)
+}
+inline float LoadProgress::_internal_progress() const {
+  if (update_case() == kProgress) {
+    return _impl_.update_.progress_;
+  }
+  return 0;
+}
+
+// bool ready = 3;
+inline bool LoadProgress::has_ready() const {
+  return update_case() == kReady;
+}
+inline void LoadProgress::set_has_ready() {
+  _impl_._oneof_case_[0] = kReady;
+}
+inline void LoadProgress::clear_ready() {
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  if (update_case() == kReady) {
+    _impl_.update_.ready_ = false;
+    clear_has_update();
+  }
+}
+inline bool LoadProgress::ready() const {
+  // @@protoc_insertion_point(field_get:sceneviewer.LoadProgress.ready)
+  return _internal_ready();
+}
+inline void LoadProgress::set_ready(bool value) {
+  if (update_case() != kReady) {
+    clear_update();
+    set_has_ready();
+  }
+  _impl_.update_.ready_ = value;
+  // @@protoc_insertion_point(field_set:sceneviewer.LoadProgress.ready)
+}
+inline bool LoadProgress::_internal_ready() const {
+  if (update_case() == kReady) {
+    return _impl_.update_.ready_;
+  }
+  return false;
+}
+
+inline bool LoadProgress::has_update() const {
+  return update_case() != UPDATE_NOT_SET;
+}
+inline void LoadProgress::clear_has_update() {
+  _impl_._oneof_case_[0] = UPDATE_NOT_SET;
+}
+inline LoadProgress::UpdateCase LoadProgress::update_case() const {
+  return LoadProgress::UpdateCase(_impl_._oneof_case_[0]);
+}
 // -------------------------------------------------------------------
 
 // Vector3

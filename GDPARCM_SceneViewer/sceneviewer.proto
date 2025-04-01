@@ -10,9 +10,12 @@ enum SceneID {
     SCENE_4 = 4;
 }
 
-message LoadingProgress {
-    SceneID scene_id = 1;
-    float progress = 2;
+message LoadProgress {
+    oneof update {
+        bool load_accepted = 1;
+        float progress = 2;
+        bool ready = 3;
+    }
 }
 
 message Vector3 {
@@ -47,7 +50,7 @@ message Scene {
 }
 
 service SceneViewerService {
-    rpc LoadScene(SceneRequest) returns (stream LoadingProgress);
+    rpc StreamLoad(SceneRequest) returns (stream LoadProgress);
     rpc GetScene (SceneRequest) returns (Scene);
 }
 

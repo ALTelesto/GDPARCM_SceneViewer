@@ -1,9 +1,12 @@
 #pragma once
 #include "vector"
+#include "mutex"
+#include "sceneviewer.pb.h"
 
 class Model3D;
 
 using namespace std;
+using namespace sceneviewer;
 
 typedef vector<Model3D*> SceneLocal;
 typedef vector<SceneLocal> SceneList;
@@ -14,14 +17,17 @@ class SceneManager
 public:
 	static SceneManager* getInstance();
 
-	void setProgress(int index, float value);
-	float getProgress(int index);
+	void setProgress(SceneID index, float value);
+	float getProgress(SceneID index);
 
-	void loadScene(int index, SceneLocal scene);
-	SceneLocal getScene(int index);
+	void loadScene(SceneID index, SceneLocal scene);
+	SceneLocal getScene(SceneID index);
 
-	void setSceneActive(int index, bool value);
-	bool isSceneActive(int index);
+	void setSceneActive(SceneID index, bool value);
+	bool isSceneActive(SceneID index);
+
+	bool registerLoadScene(SceneID index);
+	void reportDoneScene(SceneID index);
 
 	SceneList loadedScenes;
 
@@ -33,5 +39,9 @@ private:
 
 	vector<float> progress;
 	SceneActive sceneActive;
+
+	mutex sceneGuard;
+	mutex progressGuard;
+	vector<mutex*> loadingGuard;
 };
 

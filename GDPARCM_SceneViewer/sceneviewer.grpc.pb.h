@@ -35,6 +35,15 @@ class SceneViewerService final {
   class StubInterface {
    public:
     virtual ~StubInterface() {}
+    std::unique_ptr< ::grpc::ClientReaderInterface< ::sceneviewer::LoadProgress>> StreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request) {
+      return std::unique_ptr< ::grpc::ClientReaderInterface< ::sceneviewer::LoadProgress>>(StreamLoadRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::sceneviewer::LoadProgress>> AsyncStreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::sceneviewer::LoadProgress>>(AsyncStreamLoadRaw(context, request, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::sceneviewer::LoadProgress>> PrepareAsyncStreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReaderInterface< ::sceneviewer::LoadProgress>>(PrepareAsyncStreamLoadRaw(context, request, cq));
+    }
     virtual ::grpc::Status GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::sceneviewer::Scene* response) = 0;
     std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::sceneviewer::Scene>> AsyncGetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReaderInterface< ::sceneviewer::Scene>>(AsyncGetSceneRaw(context, request, cq));
@@ -45,6 +54,7 @@ class SceneViewerService final {
     class async_interface {
      public:
       virtual ~async_interface() {}
+      virtual void StreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::grpc::ClientReadReactor< ::sceneviewer::LoadProgress>* reactor) = 0;
       virtual void GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response, std::function<void(::grpc::Status)>) = 0;
       virtual void GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response, ::grpc::ClientUnaryReactor* reactor) = 0;
     };
@@ -52,12 +62,24 @@ class SceneViewerService final {
     virtual class async_interface* async() { return nullptr; }
     class async_interface* experimental_async() { return async(); }
    private:
+    virtual ::grpc::ClientReaderInterface< ::sceneviewer::LoadProgress>* StreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::sceneviewer::LoadProgress>* AsyncStreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) = 0;
+    virtual ::grpc::ClientAsyncReaderInterface< ::sceneviewer::LoadProgress>* PrepareAsyncStreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::sceneviewer::Scene>* AsyncGetSceneRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) = 0;
     virtual ::grpc::ClientAsyncResponseReaderInterface< ::sceneviewer::Scene>* PrepareAsyncGetSceneRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) = 0;
   };
   class Stub final : public StubInterface {
    public:
     Stub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
+    std::unique_ptr< ::grpc::ClientReader< ::sceneviewer::LoadProgress>> StreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request) {
+      return std::unique_ptr< ::grpc::ClientReader< ::sceneviewer::LoadProgress>>(StreamLoadRaw(context, request));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>> AsyncStreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>>(AsyncStreamLoadRaw(context, request, cq, tag));
+    }
+    std::unique_ptr< ::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>> PrepareAsyncStreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) {
+      return std::unique_ptr< ::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>>(PrepareAsyncStreamLoadRaw(context, request, cq));
+    }
     ::grpc::Status GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::sceneviewer::Scene* response) override;
     std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::sceneviewer::Scene>> AsyncGetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) {
       return std::unique_ptr< ::grpc::ClientAsyncResponseReader< ::sceneviewer::Scene>>(AsyncGetSceneRaw(context, request, cq));
@@ -68,6 +90,7 @@ class SceneViewerService final {
     class async final :
       public StubInterface::async_interface {
      public:
+      void StreamLoad(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::grpc::ClientReadReactor< ::sceneviewer::LoadProgress>* reactor) override;
       void GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response, std::function<void(::grpc::Status)>) override;
       void GetScene(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response, ::grpc::ClientUnaryReactor* reactor) override;
      private:
@@ -81,8 +104,12 @@ class SceneViewerService final {
    private:
     std::shared_ptr< ::grpc::ChannelInterface> channel_;
     class async async_stub_{this};
+    ::grpc::ClientReader< ::sceneviewer::LoadProgress>* StreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request) override;
+    ::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>* AsyncStreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq, void* tag) override;
+    ::grpc::ClientAsyncReader< ::sceneviewer::LoadProgress>* PrepareAsyncStreamLoadRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::sceneviewer::Scene>* AsyncGetSceneRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) override;
     ::grpc::ClientAsyncResponseReader< ::sceneviewer::Scene>* PrepareAsyncGetSceneRaw(::grpc::ClientContext* context, const ::sceneviewer::SceneRequest& request, ::grpc::CompletionQueue* cq) override;
+    const ::grpc::internal::RpcMethod rpcmethod_StreamLoad_;
     const ::grpc::internal::RpcMethod rpcmethod_GetScene_;
   };
   static std::unique_ptr<Stub> NewStub(const std::shared_ptr< ::grpc::ChannelInterface>& channel, const ::grpc::StubOptions& options = ::grpc::StubOptions());
@@ -91,7 +118,28 @@ class SceneViewerService final {
    public:
     Service();
     virtual ~Service();
+    virtual ::grpc::Status StreamLoad(::grpc::ServerContext* context, const ::sceneviewer::SceneRequest* request, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* writer);
     virtual ::grpc::Status GetScene(::grpc::ServerContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response);
+  };
+  template <class BaseClass>
+  class WithAsyncMethod_StreamLoad : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithAsyncMethod_StreamLoad() {
+      ::grpc::Service::MarkMethodAsync(0);
+    }
+    ~WithAsyncMethod_StreamLoad() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamLoad(::grpc::ServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamLoad(::grpc::ServerContext* context, ::sceneviewer::SceneRequest* request, ::grpc::ServerAsyncWriter< ::sceneviewer::LoadProgress>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(0, context, request, writer, new_call_cq, notification_cq, tag);
+    }
   };
   template <class BaseClass>
   class WithAsyncMethod_GetScene : public BaseClass {
@@ -99,7 +147,7 @@ class SceneViewerService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithAsyncMethod_GetScene() {
-      ::grpc::Service::MarkMethodAsync(0);
+      ::grpc::Service::MarkMethodAsync(1);
     }
     ~WithAsyncMethod_GetScene() override {
       BaseClassMustBeDerivedFromService(this);
@@ -110,23 +158,45 @@ class SceneViewerService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetScene(::grpc::ServerContext* context, ::sceneviewer::SceneRequest* request, ::grpc::ServerAsyncResponseWriter< ::sceneviewer::Scene>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
   };
-  typedef WithAsyncMethod_GetScene<Service > AsyncService;
+  typedef WithAsyncMethod_StreamLoad<WithAsyncMethod_GetScene<Service > > AsyncService;
+  template <class BaseClass>
+  class WithCallbackMethod_StreamLoad : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithCallbackMethod_StreamLoad() {
+      ::grpc::Service::MarkMethodCallback(0,
+          new ::grpc::internal::CallbackServerStreamingHandler< ::sceneviewer::SceneRequest, ::sceneviewer::LoadProgress>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const ::sceneviewer::SceneRequest* request) { return this->StreamLoad(context, request); }));
+    }
+    ~WithCallbackMethod_StreamLoad() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamLoad(::grpc::ServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerWriteReactor< ::sceneviewer::LoadProgress>* StreamLoad(
+      ::grpc::CallbackServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/)  { return nullptr; }
+  };
   template <class BaseClass>
   class WithCallbackMethod_GetScene : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithCallbackMethod_GetScene() {
-      ::grpc::Service::MarkMethodCallback(0,
+      ::grpc::Service::MarkMethodCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::sceneviewer::SceneRequest, ::sceneviewer::Scene>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::sceneviewer::SceneRequest* request, ::sceneviewer::Scene* response) { return this->GetScene(context, request, response); }));}
     void SetMessageAllocatorFor_GetScene(
         ::grpc::MessageAllocator< ::sceneviewer::SceneRequest, ::sceneviewer::Scene>* allocator) {
-      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(0);
+      ::grpc::internal::MethodHandler* const handler = ::grpc::Service::GetHandler(1);
       static_cast<::grpc::internal::CallbackUnaryHandler< ::sceneviewer::SceneRequest, ::sceneviewer::Scene>*>(handler)
               ->SetMessageAllocator(allocator);
     }
@@ -141,15 +211,32 @@ class SceneViewerService final {
     virtual ::grpc::ServerUnaryReactor* GetScene(
       ::grpc::CallbackServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::sceneviewer::Scene* /*response*/)  { return nullptr; }
   };
-  typedef WithCallbackMethod_GetScene<Service > CallbackService;
+  typedef WithCallbackMethod_StreamLoad<WithCallbackMethod_GetScene<Service > > CallbackService;
   typedef CallbackService ExperimentalCallbackService;
+  template <class BaseClass>
+  class WithGenericMethod_StreamLoad : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithGenericMethod_StreamLoad() {
+      ::grpc::Service::MarkMethodGeneric(0);
+    }
+    ~WithGenericMethod_StreamLoad() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamLoad(::grpc::ServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+  };
   template <class BaseClass>
   class WithGenericMethod_GetScene : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithGenericMethod_GetScene() {
-      ::grpc::Service::MarkMethodGeneric(0);
+      ::grpc::Service::MarkMethodGeneric(1);
     }
     ~WithGenericMethod_GetScene() override {
       BaseClassMustBeDerivedFromService(this);
@@ -161,12 +248,32 @@ class SceneViewerService final {
     }
   };
   template <class BaseClass>
+  class WithRawMethod_StreamLoad : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawMethod_StreamLoad() {
+      ::grpc::Service::MarkMethodRaw(0);
+    }
+    ~WithRawMethod_StreamLoad() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamLoad(::grpc::ServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    void RequestStreamLoad(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncWriter< ::grpc::ByteBuffer>* writer, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
+      ::grpc::Service::RequestAsyncServerStreaming(0, context, request, writer, new_call_cq, notification_cq, tag);
+    }
+  };
+  template <class BaseClass>
   class WithRawMethod_GetScene : public BaseClass {
    private:
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawMethod_GetScene() {
-      ::grpc::Service::MarkMethodRaw(0);
+      ::grpc::Service::MarkMethodRaw(1);
     }
     ~WithRawMethod_GetScene() override {
       BaseClassMustBeDerivedFromService(this);
@@ -177,8 +284,30 @@ class SceneViewerService final {
       return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
     }
     void RequestGetScene(::grpc::ServerContext* context, ::grpc::ByteBuffer* request, ::grpc::ServerAsyncResponseWriter< ::grpc::ByteBuffer>* response, ::grpc::CompletionQueue* new_call_cq, ::grpc::ServerCompletionQueue* notification_cq, void *tag) {
-      ::grpc::Service::RequestAsyncUnary(0, context, request, response, new_call_cq, notification_cq, tag);
+      ::grpc::Service::RequestAsyncUnary(1, context, request, response, new_call_cq, notification_cq, tag);
     }
+  };
+  template <class BaseClass>
+  class WithRawCallbackMethod_StreamLoad : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithRawCallbackMethod_StreamLoad() {
+      ::grpc::Service::MarkMethodRawCallback(0,
+          new ::grpc::internal::CallbackServerStreamingHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
+            [this](
+                   ::grpc::CallbackServerContext* context, const::grpc::ByteBuffer* request) { return this->StreamLoad(context, request); }));
+    }
+    ~WithRawCallbackMethod_StreamLoad() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable synchronous version of this method
+    ::grpc::Status StreamLoad(::grpc::ServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    virtual ::grpc::ServerWriteReactor< ::grpc::ByteBuffer>* StreamLoad(
+      ::grpc::CallbackServerContext* /*context*/, const ::grpc::ByteBuffer* /*request*/)  { return nullptr; }
   };
   template <class BaseClass>
   class WithRawCallbackMethod_GetScene : public BaseClass {
@@ -186,7 +315,7 @@ class SceneViewerService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithRawCallbackMethod_GetScene() {
-      ::grpc::Service::MarkMethodRawCallback(0,
+      ::grpc::Service::MarkMethodRawCallback(1,
           new ::grpc::internal::CallbackUnaryHandler< ::grpc::ByteBuffer, ::grpc::ByteBuffer>(
             [this](
                    ::grpc::CallbackServerContext* context, const ::grpc::ByteBuffer* request, ::grpc::ByteBuffer* response) { return this->GetScene(context, request, response); }));
@@ -208,7 +337,7 @@ class SceneViewerService final {
     void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
    public:
     WithStreamedUnaryMethod_GetScene() {
-      ::grpc::Service::MarkMethodStreamed(0,
+      ::grpc::Service::MarkMethodStreamed(1,
         new ::grpc::internal::StreamedUnaryHandler<
           ::sceneviewer::SceneRequest, ::sceneviewer::Scene>(
             [this](::grpc::ServerContext* context,
@@ -230,8 +359,35 @@ class SceneViewerService final {
     virtual ::grpc::Status StreamedGetScene(::grpc::ServerContext* context, ::grpc::ServerUnaryStreamer< ::sceneviewer::SceneRequest,::sceneviewer::Scene>* server_unary_streamer) = 0;
   };
   typedef WithStreamedUnaryMethod_GetScene<Service > StreamedUnaryService;
-  typedef Service SplitStreamedService;
-  typedef WithStreamedUnaryMethod_GetScene<Service > StreamedService;
+  template <class BaseClass>
+  class WithSplitStreamingMethod_StreamLoad : public BaseClass {
+   private:
+    void BaseClassMustBeDerivedFromService(const Service* /*service*/) {}
+   public:
+    WithSplitStreamingMethod_StreamLoad() {
+      ::grpc::Service::MarkMethodStreamed(0,
+        new ::grpc::internal::SplitServerStreamingHandler<
+          ::sceneviewer::SceneRequest, ::sceneviewer::LoadProgress>(
+            [this](::grpc::ServerContext* context,
+                   ::grpc::ServerSplitStreamer<
+                     ::sceneviewer::SceneRequest, ::sceneviewer::LoadProgress>* streamer) {
+                       return this->StreamedStreamLoad(context,
+                         streamer);
+                  }));
+    }
+    ~WithSplitStreamingMethod_StreamLoad() override {
+      BaseClassMustBeDerivedFromService(this);
+    }
+    // disable regular version of this method
+    ::grpc::Status StreamLoad(::grpc::ServerContext* /*context*/, const ::sceneviewer::SceneRequest* /*request*/, ::grpc::ServerWriter< ::sceneviewer::LoadProgress>* /*writer*/) override {
+      abort();
+      return ::grpc::Status(::grpc::StatusCode::UNIMPLEMENTED, "");
+    }
+    // replace default version of method with split streamed
+    virtual ::grpc::Status StreamedStreamLoad(::grpc::ServerContext* context, ::grpc::ServerSplitStreamer< ::sceneviewer::SceneRequest,::sceneviewer::LoadProgress>* server_split_streamer) = 0;
+  };
+  typedef WithSplitStreamingMethod_StreamLoad<Service > SplitStreamedService;
+  typedef WithSplitStreamingMethod_StreamLoad<WithStreamedUnaryMethod_GetScene<Service > > StreamedService;
 };
 
 }  // namespace sceneviewer

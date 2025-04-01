@@ -78,6 +78,32 @@ struct SceneRequestDefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 SceneRequestDefaultTypeInternal _SceneRequest_default_instance_;
 
+inline constexpr LoadProgress::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : update_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR LoadProgress::LoadProgress(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct LoadProgressDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR LoadProgressDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~LoadProgressDefaultTypeInternal() {}
+  union {
+    LoadProgress _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 LoadProgressDefaultTypeInternal _LoadProgress_default_instance_;
+
 inline constexpr Vertex::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : _cached_size_{0},
@@ -191,6 +217,18 @@ const ::uint32_t
     TableStruct_sceneviewer_2eproto::offsets[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
         protodesc_cold) = {
         ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::sceneviewer::LoadProgress, _internal_metadata_),
+        ~0u,  // no _extensions_
+        PROTOBUF_FIELD_OFFSET(::sceneviewer::LoadProgress, _impl_._oneof_case_[0]),
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        ::_pbi::kInvalidFieldOffsetTag,
+        ::_pbi::kInvalidFieldOffsetTag,
+        ::_pbi::kInvalidFieldOffsetTag,
+        PROTOBUF_FIELD_OFFSET(::sceneviewer::LoadProgress, _impl_.update_),
+        ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Vector3, _internal_metadata_),
         ~0u,  // no _extensions_
         ~0u,  // no _oneof_case_
@@ -261,14 +299,16 @@ const ::uint32_t
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
-        {0, -1, -1, sizeof(::sceneviewer::Vector3)},
-        {11, 21, -1, sizeof(::sceneviewer::Vertex)},
-        {23, -1, -1, sizeof(::sceneviewer::Mesh)},
-        {33, 45, -1, sizeof(::sceneviewer::Model)},
-        {49, -1, -1, sizeof(::sceneviewer::SceneRequest)},
-        {58, -1, -1, sizeof(::sceneviewer::Scene)},
+        {0, -1, -1, sizeof(::sceneviewer::LoadProgress)},
+        {12, -1, -1, sizeof(::sceneviewer::Vector3)},
+        {23, 33, -1, sizeof(::sceneviewer::Vertex)},
+        {35, -1, -1, sizeof(::sceneviewer::Mesh)},
+        {45, 57, -1, sizeof(::sceneviewer::Model)},
+        {61, -1, -1, sizeof(::sceneviewer::SceneRequest)},
+        {70, -1, -1, sizeof(::sceneviewer::Scene)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
+    &::sceneviewer::_LoadProgress_default_instance_._instance,
     &::sceneviewer::_Vector3_default_instance_._instance,
     &::sceneviewer::_Vertex_default_instance_._instance,
     &::sceneviewer::_Mesh_default_instance_._instance,
@@ -278,35 +318,39 @@ static const ::_pb::Message* const file_default_instances[] = {
 };
 const char descriptor_table_protodef_sceneviewer_2eproto[] ABSL_ATTRIBUTE_SECTION_VARIABLE(
     protodesc_cold) = {
-    "\n\021sceneviewer.proto\022\013sceneviewer\"*\n\007Vect"
-    "or3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\"V\n\006"
-    "Vertex\022&\n\010position\030\001 \001(\0132\024.sceneviewer.V"
-    "ector3\022$\n\006normal\030\002 \001(\0132\024.sceneviewer.Vec"
-    "tor3\">\n\004Mesh\022%\n\010vertices\030\001 \003(\0132\023.scenevi"
-    "ewer.Vertex\022\017\n\007indices\030\002 \003(\r\"\235\001\n\005Model\022\037"
-    "\n\004mesh\030\001 \001(\0132\021.sceneviewer.Mesh\022&\n\010posit"
-    "ion\030\002 \001(\0132\024.sceneviewer.Vector3\022&\n\010rotat"
-    "ion\030\003 \001(\0132\024.sceneviewer.Vector3\022#\n\005scale"
-    "\030\004 \001(\0132\024.sceneviewer.Vector3\"6\n\014SceneReq"
-    "uest\022&\n\010scene_id\030\001 \001(\0162\024.sceneviewer.Sce"
-    "neID\"+\n\005Scene\022\"\n\006models\030\001 \003(\0132\022.scenevie"
-    "wer.Model*J\n\007SceneID\022\013\n\007SCENE_0\020\000\022\013\n\007SCE"
-    "NE_1\020\001\022\013\n\007SCENE_2\020\002\022\013\n\007SCENE_3\020\003\022\013\n\007SCEN"
-    "E_4\020\0042O\n\022SceneViewerService\0229\n\010GetScene\022"
-    "\031.sceneviewer.SceneRequest\032\022.sceneviewer"
-    ".Sceneb\006proto3"
+    "\n\021sceneviewer.proto\022\013sceneviewer\"V\n\014Load"
+    "Progress\022\027\n\rload_accepted\030\001 \001(\010H\000\022\022\n\010pro"
+    "gress\030\002 \001(\002H\000\022\017\n\005ready\030\003 \001(\010H\000B\010\n\006update"
+    "\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003"
+    " \001(\002\"V\n\006Vertex\022&\n\010position\030\001 \001(\0132\024.scene"
+    "viewer.Vector3\022$\n\006normal\030\002 \001(\0132\024.scenevi"
+    "ewer.Vector3\">\n\004Mesh\022%\n\010vertices\030\001 \003(\0132\023"
+    ".sceneviewer.Vertex\022\017\n\007indices\030\002 \003(\r\"\235\001\n"
+    "\005Model\022\037\n\004mesh\030\001 \001(\0132\021.sceneviewer.Mesh\022"
+    "&\n\010position\030\002 \001(\0132\024.sceneviewer.Vector3\022"
+    "&\n\010rotation\030\003 \001(\0132\024.sceneviewer.Vector3\022"
+    "#\n\005scale\030\004 \001(\0132\024.sceneviewer.Vector3\"6\n\014"
+    "SceneRequest\022&\n\010scene_id\030\001 \001(\0162\024.scenevi"
+    "ewer.SceneID\"+\n\005Scene\022\"\n\006models\030\001 \003(\0132\022."
+    "sceneviewer.Model*J\n\007SceneID\022\013\n\007SCENE_0\020"
+    "\000\022\013\n\007SCENE_1\020\001\022\013\n\007SCENE_2\020\002\022\013\n\007SCENE_3\020\003"
+    "\022\013\n\007SCENE_4\020\0042\225\001\n\022SceneViewerService\022D\n\n"
+    "StreamLoad\022\031.sceneviewer.SceneRequest\032\031."
+    "sceneviewer.LoadProgress0\001\0229\n\010GetScene\022\031"
+    ".sceneviewer.SceneRequest\032\022.sceneviewer."
+    "Sceneb\006proto3"
 };
 static ::absl::once_flag descriptor_table_sceneviewer_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_sceneviewer_2eproto = {
     false,
     false,
-    654,
+    813,
     descriptor_table_protodef_sceneviewer_2eproto,
     "sceneviewer.proto",
     &descriptor_table_sceneviewer_2eproto_once,
     nullptr,
     0,
-    6,
+    7,
     schemas,
     file_default_instances,
     TableStruct_sceneviewer_2eproto::offsets,
@@ -322,6 +366,331 @@ PROTOBUF_CONSTINIT const uint32_t SceneID_internal_data_[] = {
     327680u, 0u, };
 bool SceneID_IsValid(int value) {
   return 0 <= value && value <= 4;
+}
+// ===================================================================
+
+class LoadProgress::_Internal {
+ public:
+  static constexpr ::int32_t kOneofCaseOffset =
+      PROTOBUF_FIELD_OFFSET(::sceneviewer::LoadProgress, _impl_._oneof_case_);
+};
+
+LoadProgress::LoadProgress(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:sceneviewer.LoadProgress)
+}
+inline PROTOBUF_NDEBUG_INLINE LoadProgress::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility, ::google::protobuf::Arena* arena,
+    const Impl_& from, const ::sceneviewer::LoadProgress& from_msg)
+      : update_{},
+        _cached_size_{0},
+        _oneof_case_{from._oneof_case_[0]} {}
+
+LoadProgress::LoadProgress(
+    ::google::protobuf::Arena* arena,
+    const LoadProgress& from)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  LoadProgress* const _this = this;
+  (void)_this;
+  _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
+      from._internal_metadata_);
+  new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  switch (update_case()) {
+    case UPDATE_NOT_SET:
+      break;
+      case kLoadAccepted:
+        _impl_.update_.load_accepted_ = from._impl_.update_.load_accepted_;
+        break;
+      case kProgress:
+        _impl_.update_.progress_ = from._impl_.update_.progress_;
+        break;
+      case kReady:
+        _impl_.update_.ready_ = from._impl_.update_.ready_;
+        break;
+  }
+
+  // @@protoc_insertion_point(copy_constructor:sceneviewer.LoadProgress)
+}
+inline PROTOBUF_NDEBUG_INLINE LoadProgress::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : update_{},
+        _cached_size_{0},
+        _oneof_case_{} {}
+
+inline void LoadProgress::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+}
+LoadProgress::~LoadProgress() {
+  // @@protoc_insertion_point(destructor:sceneviewer.LoadProgress)
+  SharedDtor(*this);
+}
+inline void LoadProgress::SharedDtor(MessageLite& self) {
+  LoadProgress& this_ = static_cast<LoadProgress&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  if (this_.has_update()) {
+    this_.clear_update();
+  }
+  this_._impl_.~Impl_();
+}
+
+void LoadProgress::clear_update() {
+// @@protoc_insertion_point(one_of_clear_start:sceneviewer.LoadProgress)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  switch (update_case()) {
+    case kLoadAccepted: {
+      // No need to clear
+      break;
+    }
+    case kProgress: {
+      // No need to clear
+      break;
+    }
+    case kReady: {
+      // No need to clear
+      break;
+    }
+    case UPDATE_NOT_SET: {
+      break;
+    }
+  }
+  _impl_._oneof_case_[0] = UPDATE_NOT_SET;
+}
+
+
+inline void* LoadProgress::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) LoadProgress(arena);
+}
+constexpr auto LoadProgress::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(LoadProgress),
+                                            alignof(LoadProgress));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull LoadProgress::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_LoadProgress_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &LoadProgress::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<LoadProgress>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &LoadProgress::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<LoadProgress>(), &LoadProgress::ByteSizeLong,
+            &LoadProgress::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(LoadProgress, _impl_._cached_size_),
+        false,
+    },
+    &LoadProgress::kDescriptorMethods,
+    &descriptor_table_sceneviewer_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* LoadProgress::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 3, 0, 0, 2> LoadProgress::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    3, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967288,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    3,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::sceneviewer::LoadProgress>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    {::_pbi::TcParser::MiniParse, {}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // bool load_accepted = 1;
+    {PROTOBUF_FIELD_OFFSET(LoadProgress, _impl_.update_.load_accepted_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kBool)},
+    // float progress = 2;
+    {PROTOBUF_FIELD_OFFSET(LoadProgress, _impl_.update_.progress_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kFloat)},
+    // bool ready = 3;
+    {PROTOBUF_FIELD_OFFSET(LoadProgress, _impl_.update_.ready_), _Internal::kOneofCaseOffset + 0, 0,
+    (0 | ::_fl::kFcOneof | ::_fl::kBool)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void LoadProgress::Clear() {
+// @@protoc_insertion_point(message_clear_start:sceneviewer.LoadProgress)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  clear_update();
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* LoadProgress::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const LoadProgress& this_ = static_cast<const LoadProgress&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* LoadProgress::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const LoadProgress& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:sceneviewer.LoadProgress)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          switch (this_.update_case()) {
+            case kLoadAccepted: {
+              target = stream->EnsureSpace(target);
+              target = ::_pbi::WireFormatLite::WriteBoolToArray(
+                  1, this_._internal_load_accepted(), target);
+              break;
+            }
+            case kProgress: {
+              target = stream->EnsureSpace(target);
+              target = ::_pbi::WireFormatLite::WriteFloatToArray(
+                  2, this_._internal_progress(), target);
+              break;
+            }
+            case kReady: {
+              target = stream->EnsureSpace(target);
+              target = ::_pbi::WireFormatLite::WriteBoolToArray(
+                  3, this_._internal_ready(), target);
+              break;
+            }
+            default:
+              break;
+          }
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:sceneviewer.LoadProgress)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t LoadProgress::ByteSizeLong(const MessageLite& base) {
+          const LoadProgress& this_ = static_cast<const LoadProgress&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t LoadProgress::ByteSizeLong() const {
+          const LoadProgress& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:sceneviewer.LoadProgress)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+          switch (this_.update_case()) {
+            // bool load_accepted = 1;
+            case kLoadAccepted: {
+              total_size += 2;
+              break;
+            }
+            // float progress = 2;
+            case kProgress: {
+              total_size += 5;
+              break;
+            }
+            // bool ready = 3;
+            case kReady: {
+              total_size += 2;
+              break;
+            }
+            case UPDATE_NOT_SET: {
+              break;
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void LoadProgress::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<LoadProgress*>(&to_msg);
+  auto& from = static_cast<const LoadProgress&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:sceneviewer.LoadProgress)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (const uint32_t oneof_from_case = from._impl_._oneof_case_[0]) {
+    const uint32_t oneof_to_case = _this->_impl_._oneof_case_[0];
+    const bool oneof_needs_init = oneof_to_case != oneof_from_case;
+    if (oneof_needs_init) {
+      if (oneof_to_case != 0) {
+        _this->clear_update();
+      }
+      _this->_impl_._oneof_case_[0] = oneof_from_case;
+    }
+
+    switch (oneof_from_case) {
+      case kLoadAccepted: {
+        _this->_impl_.update_.load_accepted_ = from._impl_.update_.load_accepted_;
+        break;
+      }
+      case kProgress: {
+        _this->_impl_.update_.progress_ = from._impl_.update_.progress_;
+        break;
+      }
+      case kReady: {
+        _this->_impl_.update_.ready_ = from._impl_.update_.ready_;
+        break;
+      }
+      case UPDATE_NOT_SET:
+        break;
+    }
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void LoadProgress::CopyFrom(const LoadProgress& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sceneviewer.LoadProgress)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void LoadProgress::InternalSwap(LoadProgress* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+  swap(_impl_.update_, other->_impl_.update_);
+  swap(_impl_._oneof_case_[0], other->_impl_._oneof_case_[0]);
+}
+
+::google::protobuf::Metadata LoadProgress::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
 

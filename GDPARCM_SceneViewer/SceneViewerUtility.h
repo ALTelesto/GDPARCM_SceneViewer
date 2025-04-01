@@ -2,11 +2,16 @@
 #include "sceneviewer.pb.h"
 #include "Dependencies.h"
 
+namespace tinyobj
+{
+	struct shape_t;
+}
+
 // Convert Mesh proto to tinyobj shape and GL indices
 void ProtoToMesh(const sceneviewer::Mesh& mesh_proto,
     tinyobj::shape_t& shape,
     std::vector<GLuint>& mesh_indices) {
-
+    /*
     // Clear existing data
     shape.mesh.indices.clear();
     shape.mesh.num_face_vertices.clear();
@@ -49,11 +54,13 @@ void ProtoToMesh(const sceneviewer::Mesh& mesh_proto,
         idx.texcoord_index = -1;
         shape.mesh.indices.push_back(idx);
     }
+	*/
 }
 
 // Convert tinyobj shape to Mesh proto
 sceneviewer::Mesh MeshToProto(const tinyobj::shape_t& shape,
     const std::vector<GLuint>& mesh_indices) {
+    /*
     sceneviewer::Mesh mesh_proto;
     const auto& attrib = shape.mesh.attributes;
 
@@ -89,4 +96,6 @@ sceneviewer::Mesh MeshToProto(const tinyobj::shape_t& shape,
     }
 
     return mesh_proto;
+	*/
+    return Mesh();
 }

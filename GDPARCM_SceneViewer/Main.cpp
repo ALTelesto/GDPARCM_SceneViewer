@@ -6,10 +6,14 @@
 #include <GLES2/gl2.h>
 #endif
 
-#include "Dependencies.h"
+#define TINYOBJLOADER_IMPLEMENTATION
+#include "tiny_obj_loader.h"
+
 #include "Model3D.h"
 #include "SceneManager.h"
 #include "SceneUI.h"
+
+#include "Dependencies.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -262,7 +266,7 @@ int main(void) {
         // loop through vector and call draw function from each Model instances
         for(int i = 0; i < SceneManager::getInstance()->loadedScenes.size(); i++)
         {
-            if(SceneManager::getInstance()->isSceneActive(i))
+            if(SceneManager::getInstance()->isSceneActive(static_cast<SceneID>(i)))
             {
 	            for (Model3D* Model : SceneManager::getInstance()->loadedScenes[i]) {
 	                Model->draw(pos_mod, rx_mod, ry_mod, fov_mod, shaderProgram);
