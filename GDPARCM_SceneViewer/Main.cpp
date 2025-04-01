@@ -9,6 +9,7 @@
 #include "Dependencies.h"
 #include "Model3D.h"
 #include "SceneManager.h"
+#include "SceneUI.h"
 
 static void glfw_error_callback(int error, const char* description)
 {
@@ -46,6 +47,9 @@ float fov_mod = 60.0f;  // fov
 double cooldownTime = 3.0;
 double lastSpawnTime = -3.0;
 double currentTime = 0.0;
+
+// sceneUI variable
+SceneUI* guiScreen = new SceneUI();
 
 // we store the instances of Model here
 
@@ -243,6 +247,8 @@ int main(void) {
         ImGui_ImplGlfw_NewFrame();
         ImGui::NewFrame();
 
+        guiScreen->render();
+
         if (show_demo_window)
             ImGui::ShowDemoWindow(&show_demo_window);
 
@@ -274,5 +280,6 @@ int main(void) {
     }
 
     glfwTerminate();
+    delete guiScreen;   // deletes guiScreen after closing bc why not
     return 0;
 }
