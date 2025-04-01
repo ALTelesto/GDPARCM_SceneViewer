@@ -12,6 +12,7 @@
 #include "Model3D.h"
 #include "SceneManager.h"
 #include "SceneUI.h"
+#include "FPSCounter.h"
 
 #include "SceneViewerServer.h"
 
@@ -213,6 +214,7 @@ int ViewerWindow()
 #endif
 	ImGui_ImplOpenGL3_Init(glsl_version);
 
+	FPSCounter fpsCounter;
 	bool show_demo_window = true;
 	bool show_another_window = false;
 	ImVec4 clear_color = ImVec4(0.45f, 0.55f, 0.60f, 1.00f);
@@ -256,13 +258,13 @@ int ViewerWindow()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		guiScreen->render();
-
 		if (show_demo_window)
 			ImGui::ShowDemoWindow(&show_demo_window);
 
 		/* Render here */
 		ImGui::Render();
+		guiScreen->render();
+		fpsCounter.render();
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// get current timestamp
