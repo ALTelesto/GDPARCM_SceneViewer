@@ -13,6 +13,8 @@ private:
     size_t indicesSize;
     GLuint VAO, VBO, EBO;
 
+    bool glInitialized = false;
+
 public:
     Model3D(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, const std::vector<GLfloat>& vertices, const std::vector<GLuint>& indices);
     ~Model3D();
@@ -30,4 +32,6 @@ public:
     std::vector<GLfloat> getVertices();
     std::vector<GLuint> getIndices();
     size_t getIndicesSize();
+
+    void initializeGL();
 };

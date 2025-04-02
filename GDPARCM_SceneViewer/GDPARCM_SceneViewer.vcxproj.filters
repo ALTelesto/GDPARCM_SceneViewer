@@ -37,6 +37,18 @@
     <Filter Include="Source Files\Scenes">
       <UniqueIdentifier>{68c59400-f5a6-4034-b0d9-621c93a66732}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\UI">
+      <UniqueIdentifier>{9295c08c-a34a-452d-9c7d-af64d21de9f3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Utility">
+      <UniqueIdentifier>{5cc78138-e76d-4172-a220-3a3acbb5ca6a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking\Client">
+      <UniqueIdentifier>{bdb1fead-ffce-42fe-8cf6-470d5a636761}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Networking\Utility">
+      <UniqueIdentifier>{4bb87573-17e9-4382-9aef-09f2965c377a}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="glad.c">
@@ -93,6 +105,21 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Source Files\Scenes</Filter>
     </ClCompile>
+    <ClCompile Include="Model3D.cpp">
+      <Filter>Source Files\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneUI.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
+    <ClCompile Include="StringUtils.cpp">
+      <Filter>Source Files\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneViewerUtility.cpp">
+      <Filter>Source Files\Networking\Utility</Filter>
+    </ClCompile>
+    <ClCompile Include="SceneViewerClient.cpp">
+      <Filter>Source Files\Networking\Client</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -121,9 +148,6 @@
     </ClInclude>
     <ClInclude Include="ThreadPool.h">
       <Filter>Source Files\Threads\Thread Pooling</Filter>
-    </ClInclude>
-    <ClInclude Include="SceneViewerUtility.h">
-      <Filter>Source Files\Networking</Filter>
     </ClInclude>
     <ClInclude Include="Dependencies.h">
       <Filter>Source Files</Filter>
@@ -157,6 +181,18 @@
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Source Files\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneUI.h">
+      <Filter>Source Files\UI</Filter>
+    </ClInclude>
+    <ClInclude Include="StringUtils.h">
+      <Filter>Source Files\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneViewerUtility.h">
+      <Filter>Source Files\Networking\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="SceneViewerClient.h">
+      <Filter>Source Files\Networking\Client</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

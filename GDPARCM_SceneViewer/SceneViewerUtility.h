@@ -2,8 +2,5 @@
 #include "sceneviewer.pb.h"
 #include "Model3D.h"
 
-Model3D* ProtoToModel(const sceneviewer::Model& proto_model);
-
-sceneviewer::Model Model3DToProto(Model3D& model);
-
-void ConvertModel3DToProto(const Model3D& src, sceneviewer::Model* dst);
+void ConvertModel3DToProto(Model3D& src, sceneviewer::Model* dst);
+Model3D* ConvertProtoToModel3D(const sceneviewer::Model& src);

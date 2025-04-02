@@ -12,7 +12,7 @@ Model3D::Model3D(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, const 
     indicesSize = indices.size();
 
     // Initialize VAO, VBO, and EBO
-    glGenVertexArrays(1, &VAO);
+    /*glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
 
@@ -29,7 +29,7 @@ Model3D::Model3D(glm::vec3 position, glm::vec3 rotation, glm::vec3 scale, const 
 
     glBindBuffer(GL_ARRAY_BUFFER, 0);
     glBindVertexArray(0);
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);*/
 }
 
 Model3D::~Model3D()
@@ -41,6 +41,9 @@ Model3D::~Model3D()
 
 void Model3D::draw(glm::vec3 pos, float x, float y, float fov, GLuint shaderProgram)
 {
+	if (!glInitialized) initializeGL();
+
+	if (!glInitialized) return;
 	// axis
 	float axis_x = 0.0;
 	float axis_y = 1.0;
@@ -132,4 +135,32 @@ std::vector<GLuint> Model3D::getIndices()
 size_t Model3D::getIndicesSize()
 {
 	return this->indicesSize;
+}
+
+void Model3D::initializeGL()
+{
+	if (glInitialized) return;
+
+	glGenVertexArrays(1, &VAO);
+	glGenBuffers(1, &VBO);
+	glGenBuffers(1, &EBO);
+
+	glBindVertexArray(VAO);
+
+	glBindBuffer(GL_ARRAY_BUFFER, VBO);
+	glBufferData(GL_ARRAY_BUFFER, vertices.size() * sizeof(GLfloat),
+		vertices.data(), GL_STATIC_DRAW);
+
+	glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (void*)0);
+	glEnableVertexAttribArray(0);
+
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, indices.size() * sizeof(GLuint),
+		indices.data(), GL_STATIC_DRAW);
+
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindVertexArray(0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+
+	glInitialized = true;
 }

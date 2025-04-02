@@ -18,6 +18,10 @@ message LoadProgress {
     }
 }
 
+message UnloadResponse{
+    bool done = 1;
+}
+
 message Vector3 {
     float x = 1;
     float y = 2;
@@ -42,10 +46,12 @@ message SceneRequest {
 
 message Scene {
     repeated Model models = 1;
+    bool done = 2;
 }
 
 service SceneViewerService {
     rpc StreamLoad(SceneRequest) returns (stream LoadProgress);
+    rpc UnloadScene(SceneRequest) returns (UnloadResponse);
     rpc GetScene (SceneRequest) returns (Scene);
 }
 

@@ -53,6 +53,31 @@ struct Vector3DefaultTypeInternal {
 PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
     PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 Vector3DefaultTypeInternal _Vector3_default_instance_;
 
+inline constexpr UnloadResponse::Impl_::Impl_(
+    ::_pbi::ConstantInitialized) noexcept
+      : done_{false},
+        _cached_size_{0} {}
+
+template <typename>
+PROTOBUF_CONSTEXPR UnloadResponse::UnloadResponse(::_pbi::ConstantInitialized)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(_class_data_.base()),
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(),
+#endif  // PROTOBUF_CUSTOM_VTABLE
+      _impl_(::_pbi::ConstantInitialized()) {
+}
+struct UnloadResponseDefaultTypeInternal {
+  PROTOBUF_CONSTEXPR UnloadResponseDefaultTypeInternal() : _instance(::_pbi::ConstantInitialized{}) {}
+  ~UnloadResponseDefaultTypeInternal() {}
+  union {
+    UnloadResponse _instance;
+  };
+};
+
+PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
+    PROTOBUF_ATTRIBUTE_INIT_PRIORITY1 UnloadResponseDefaultTypeInternal _UnloadResponse_default_instance_;
+
 inline constexpr SceneRequest::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : scene_id_{static_cast< ::sceneviewer::SceneID >(0)},
@@ -162,6 +187,7 @@ PROTOBUF_ATTRIBUTE_NO_DESTROY PROTOBUF_CONSTINIT
 inline constexpr Scene::Impl_::Impl_(
     ::_pbi::ConstantInitialized) noexcept
       : models_{},
+        done_{false},
         _cached_size_{0} {}
 
 template <typename>
@@ -202,6 +228,15 @@ const ::uint32_t
         ::_pbi::kInvalidFieldOffsetTag,
         ::_pbi::kInvalidFieldOffsetTag,
         PROTOBUF_FIELD_OFFSET(::sceneviewer::LoadProgress, _impl_.update_),
+        ~0u,  // no _has_bits_
+        PROTOBUF_FIELD_OFFSET(::sceneviewer::UnloadResponse, _internal_metadata_),
+        ~0u,  // no _extensions_
+        ~0u,  // no _oneof_case_
+        ~0u,  // no _weak_field_map_
+        ~0u,  // no _inlined_string_donated_
+        ~0u,  // no _split_
+        ~0u,  // no sizeof(Split)
+        PROTOBUF_FIELD_OFFSET(::sceneviewer::UnloadResponse, _impl_.done_),
         ~0u,  // no _has_bits_
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Vector3, _internal_metadata_),
         ~0u,  // no _extensions_
@@ -257,19 +292,22 @@ const ::uint32_t
         ~0u,  // no _split_
         ~0u,  // no sizeof(Split)
         PROTOBUF_FIELD_OFFSET(::sceneviewer::Scene, _impl_.models_),
+        PROTOBUF_FIELD_OFFSET(::sceneviewer::Scene, _impl_.done_),
 };
 
 static const ::_pbi::MigrationSchema
     schemas[] ABSL_ATTRIBUTE_SECTION_VARIABLE(protodesc_cold) = {
         {0, -1, -1, sizeof(::sceneviewer::LoadProgress)},
-        {12, -1, -1, sizeof(::sceneviewer::Vector3)},
-        {23, -1, -1, sizeof(::sceneviewer::Mesh)},
-        {33, 45, -1, sizeof(::sceneviewer::Model)},
-        {49, -1, -1, sizeof(::sceneviewer::SceneRequest)},
-        {58, -1, -1, sizeof(::sceneviewer::Scene)},
+        {12, -1, -1, sizeof(::sceneviewer::UnloadResponse)},
+        {21, -1, -1, sizeof(::sceneviewer::Vector3)},
+        {32, -1, -1, sizeof(::sceneviewer::Mesh)},
+        {42, 54, -1, sizeof(::sceneviewer::Model)},
+        {58, -1, -1, sizeof(::sceneviewer::SceneRequest)},
+        {67, -1, -1, sizeof(::sceneviewer::Scene)},
 };
 static const ::_pb::Message* const file_default_instances[] = {
     &::sceneviewer::_LoadProgress_default_instance_._instance,
+    &::sceneviewer::_UnloadResponse_default_instance_._instance,
     &::sceneviewer::_Vector3_default_instance_._instance,
     &::sceneviewer::_Mesh_default_instance_._instance,
     &::sceneviewer::_Model_default_instance_._instance,
@@ -281,33 +319,36 @@ const char descriptor_table_protodef_sceneviewer_2eproto[] ABSL_ATTRIBUTE_SECTIO
     "\n\021sceneviewer.proto\022\013sceneviewer\"V\n\014Load"
     "Progress\022\027\n\rload_accepted\030\001 \001(\010H\000\022\022\n\010pro"
     "gress\030\002 \001(\002H\000\022\017\n\005ready\030\003 \001(\010H\000B\010\n\006update"
-    "\"*\n\007Vector3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003"
-    " \001(\002\")\n\004Mesh\022\020\n\010vertices\030\001 \003(\002\022\017\n\007indice"
-    "s\030\002 \003(\r\"\235\001\n\005Model\022\037\n\004mesh\030\001 \001(\0132\021.scenev"
-    "iewer.Mesh\022&\n\010position\030\002 \001(\0132\024.sceneview"
-    "er.Vector3\022&\n\010rotation\030\003 \001(\0132\024.sceneview"
-    "er.Vector3\022#\n\005scale\030\004 \001(\0132\024.sceneviewer."
-    "Vector3\"6\n\014SceneRequest\022&\n\010scene_id\030\001 \001("
-    "\0162\024.sceneviewer.SceneID\"+\n\005Scene\022\"\n\006mode"
-    "ls\030\001 \003(\0132\022.sceneviewer.Model*J\n\007SceneID\022"
-    "\013\n\007SCENE_0\020\000\022\013\n\007SCENE_1\020\001\022\013\n\007SCENE_2\020\002\022\013"
-    "\n\007SCENE_3\020\003\022\013\n\007SCENE_4\020\0042\225\001\n\022SceneViewer"
-    "Service\022D\n\nStreamLoad\022\031.sceneviewer.Scen"
-    "eRequest\032\031.sceneviewer.LoadProgress0\001\0229\n"
-    "\010GetScene\022\031.sceneviewer.SceneRequest\032\022.s"
-    "ceneviewer.Sceneb\006proto3"
+    "\"\036\n\016UnloadResponse\022\014\n\004done\030\001 \001(\010\"*\n\007Vect"
+    "or3\022\t\n\001x\030\001 \001(\002\022\t\n\001y\030\002 \001(\002\022\t\n\001z\030\003 \001(\002\")\n\004"
+    "Mesh\022\020\n\010vertices\030\001 \003(\002\022\017\n\007indices\030\002 \003(\r\""
+    "\235\001\n\005Model\022\037\n\004mesh\030\001 \001(\0132\021.sceneviewer.Me"
+    "sh\022&\n\010position\030\002 \001(\0132\024.sceneviewer.Vecto"
+    "r3\022&\n\010rotation\030\003 \001(\0132\024.sceneviewer.Vecto"
+    "r3\022#\n\005scale\030\004 \001(\0132\024.sceneviewer.Vector3\""
+    "6\n\014SceneRequest\022&\n\010scene_id\030\001 \001(\0162\024.scen"
+    "eviewer.SceneID\"9\n\005Scene\022\"\n\006models\030\001 \003(\013"
+    "2\022.sceneviewer.Model\022\014\n\004done\030\002 \001(\010*J\n\007Sc"
+    "eneID\022\013\n\007SCENE_0\020\000\022\013\n\007SCENE_1\020\001\022\013\n\007SCENE"
+    "_2\020\002\022\013\n\007SCENE_3\020\003\022\013\n\007SCENE_4\020\0042\334\001\n\022Scene"
+    "ViewerService\022D\n\nStreamLoad\022\031.sceneviewe"
+    "r.SceneRequest\032\031.sceneviewer.LoadProgres"
+    "s0\001\022E\n\013UnloadScene\022\031.sceneviewer.SceneRe"
+    "quest\032\033.sceneviewer.UnloadResponse\0229\n\010Ge"
+    "tScene\022\031.sceneviewer.SceneRequest\032\022.scen"
+    "eviewer.Sceneb\006proto3"
 };
 static ::absl::once_flag descriptor_table_sceneviewer_2eproto_once;
 PROTOBUF_CONSTINIT const ::_pbi::DescriptorTable descriptor_table_sceneviewer_2eproto = {
     false,
     false,
-    704,
+    821,
     descriptor_table_protodef_sceneviewer_2eproto,
     "sceneviewer.proto",
     &descriptor_table_sceneviewer_2eproto_once,
     nullptr,
     0,
-    6,
+    7,
     schemas,
     file_default_instances,
     TableStruct_sceneviewer_2eproto::offsets,
@@ -647,6 +688,212 @@ void LoadProgress::InternalSwap(LoadProgress* PROTOBUF_RESTRICT other) {
 }
 
 ::google::protobuf::Metadata LoadProgress::GetMetadata() const {
+  return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
+}
+// ===================================================================
+
+class UnloadResponse::_Internal {
+ public:
+};
+
+UnloadResponse::UnloadResponse(::google::protobuf::Arena* arena)
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+    : ::google::protobuf::Message(arena, _class_data_.base()) {
+#else   // PROTOBUF_CUSTOM_VTABLE
+    : ::google::protobuf::Message(arena) {
+#endif  // PROTOBUF_CUSTOM_VTABLE
+  SharedCtor(arena);
+  // @@protoc_insertion_point(arena_constructor:sceneviewer.UnloadResponse)
+}
+UnloadResponse::UnloadResponse(
+    ::google::protobuf::Arena* arena, const UnloadResponse& from)
+    : UnloadResponse(arena) {
+  MergeFrom(from);
+}
+inline PROTOBUF_NDEBUG_INLINE UnloadResponse::Impl_::Impl_(
+    ::google::protobuf::internal::InternalVisibility visibility,
+    ::google::protobuf::Arena* arena)
+      : _cached_size_{0} {}
+
+inline void UnloadResponse::SharedCtor(::_pb::Arena* arena) {
+  new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.done_ = {};
+}
+UnloadResponse::~UnloadResponse() {
+  // @@protoc_insertion_point(destructor:sceneviewer.UnloadResponse)
+  SharedDtor(*this);
+}
+inline void UnloadResponse::SharedDtor(MessageLite& self) {
+  UnloadResponse& this_ = static_cast<UnloadResponse&>(self);
+  this_._internal_metadata_.Delete<::google::protobuf::UnknownFieldSet>();
+  ABSL_DCHECK(this_.GetArena() == nullptr);
+  this_._impl_.~Impl_();
+}
+
+inline void* UnloadResponse::PlacementNew_(const void*, void* mem,
+                                        ::google::protobuf::Arena* arena) {
+  return ::new (mem) UnloadResponse(arena);
+}
+constexpr auto UnloadResponse::InternalNewImpl_() {
+  return ::google::protobuf::internal::MessageCreator::ZeroInit(sizeof(UnloadResponse),
+                                            alignof(UnloadResponse));
+}
+PROTOBUF_CONSTINIT
+PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::google::protobuf::internal::ClassDataFull UnloadResponse::_class_data_ = {
+    ::google::protobuf::internal::ClassData{
+        &_UnloadResponse_default_instance_._instance,
+        &_table_.header,
+        nullptr,  // OnDemandRegisterArenaDtor
+        nullptr,  // IsInitialized
+        &UnloadResponse::MergeImpl,
+        ::google::protobuf::Message::GetNewImpl<UnloadResponse>(),
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        &UnloadResponse::SharedDtor,
+        ::google::protobuf::Message::GetClearImpl<UnloadResponse>(), &UnloadResponse::ByteSizeLong,
+            &UnloadResponse::_InternalSerialize,
+#endif  // PROTOBUF_CUSTOM_VTABLE
+        PROTOBUF_FIELD_OFFSET(UnloadResponse, _impl_._cached_size_),
+        false,
+    },
+    &UnloadResponse::kDescriptorMethods,
+    &descriptor_table_sceneviewer_2eproto,
+    nullptr,  // tracker
+};
+const ::google::protobuf::internal::ClassData* UnloadResponse::GetClassData() const {
+  ::google::protobuf::internal::PrefetchToLocalCache(&_class_data_);
+  ::google::protobuf::internal::PrefetchToLocalCache(_class_data_.tc_table);
+  return _class_data_.base();
+}
+PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
+const ::_pbi::TcParseTable<0, 1, 0, 0, 2> UnloadResponse::_table_ = {
+  {
+    0,  // no _has_bits_
+    0, // no _extensions_
+    1, 0,  // max_field_number, fast_idx_mask
+    offsetof(decltype(_table_), field_lookup_table),
+    4294967294,  // skipmap
+    offsetof(decltype(_table_), field_entries),
+    1,  // num_field_entries
+    0,  // num_aux_entries
+    offsetof(decltype(_table_), field_names),  // no aux_entries
+    _class_data_.base(),
+    nullptr,  // post_loop_handler
+    ::_pbi::TcParser::GenericFallback,  // fallback
+    #ifdef PROTOBUF_PREFETCH_PARSE_TABLE
+    ::_pbi::TcParser::GetTable<::sceneviewer::UnloadResponse>(),  // to_prefetch
+    #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
+  }, {{
+    // bool done = 1;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(UnloadResponse, _impl_.done_), 63>(),
+     {8, 63, 0, PROTOBUF_FIELD_OFFSET(UnloadResponse, _impl_.done_)}},
+  }}, {{
+    65535, 65535
+  }}, {{
+    // bool done = 1;
+    {PROTOBUF_FIELD_OFFSET(UnloadResponse, _impl_.done_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
+  }},
+  // no aux_entries
+  {{
+  }},
+};
+
+PROTOBUF_NOINLINE void UnloadResponse::Clear() {
+// @@protoc_insertion_point(message_clear_start:sceneviewer.UnloadResponse)
+  ::google::protobuf::internal::TSanWrite(&_impl_);
+  ::uint32_t cached_has_bits = 0;
+  // Prevent compiler warnings about cached_has_bits being unused
+  (void) cached_has_bits;
+
+  _impl_.done_ = false;
+  _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
+}
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::uint8_t* UnloadResponse::_InternalSerialize(
+            const MessageLite& base, ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) {
+          const UnloadResponse& this_ = static_cast<const UnloadResponse&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::uint8_t* UnloadResponse::_InternalSerialize(
+            ::uint8_t* target,
+            ::google::protobuf::io::EpsCopyOutputStream* stream) const {
+          const UnloadResponse& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(serialize_to_array_start:sceneviewer.UnloadResponse)
+          ::uint32_t cached_has_bits = 0;
+          (void)cached_has_bits;
+
+          // bool done = 1;
+          if (this_._internal_done() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteBoolToArray(
+                1, this_._internal_done(), target);
+          }
+
+          if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
+            target =
+                ::_pbi::WireFormat::InternalSerializeUnknownFieldsToArray(
+                    this_._internal_metadata_.unknown_fields<::google::protobuf::UnknownFieldSet>(::google::protobuf::UnknownFieldSet::default_instance), target, stream);
+          }
+          // @@protoc_insertion_point(serialize_to_array_end:sceneviewer.UnloadResponse)
+          return target;
+        }
+
+#if defined(PROTOBUF_CUSTOM_VTABLE)
+        ::size_t UnloadResponse::ByteSizeLong(const MessageLite& base) {
+          const UnloadResponse& this_ = static_cast<const UnloadResponse&>(base);
+#else   // PROTOBUF_CUSTOM_VTABLE
+        ::size_t UnloadResponse::ByteSizeLong() const {
+          const UnloadResponse& this_ = *this;
+#endif  // PROTOBUF_CUSTOM_VTABLE
+          // @@protoc_insertion_point(message_byte_size_start:sceneviewer.UnloadResponse)
+          ::size_t total_size = 0;
+
+          ::uint32_t cached_has_bits = 0;
+          // Prevent compiler warnings about cached_has_bits being unused
+          (void)cached_has_bits;
+
+           {
+            // bool done = 1;
+            if (this_._internal_done() != 0) {
+              total_size += 2;
+            }
+          }
+          return this_.MaybeComputeUnknownFieldsSize(total_size,
+                                                     &this_._impl_._cached_size_);
+        }
+
+void UnloadResponse::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::protobuf::MessageLite& from_msg) {
+  auto* const _this = static_cast<UnloadResponse*>(&to_msg);
+  auto& from = static_cast<const UnloadResponse&>(from_msg);
+  // @@protoc_insertion_point(class_specific_merge_from_start:sceneviewer.UnloadResponse)
+  ABSL_DCHECK_NE(&from, _this);
+  ::uint32_t cached_has_bits = 0;
+  (void) cached_has_bits;
+
+  if (from._internal_done() != 0) {
+    _this->_impl_.done_ = from._impl_.done_;
+  }
+  _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
+}
+
+void UnloadResponse::CopyFrom(const UnloadResponse& from) {
+// @@protoc_insertion_point(class_specific_copy_from_start:sceneviewer.UnloadResponse)
+  if (&from == this) return;
+  Clear();
+  MergeFrom(from);
+}
+
+
+void UnloadResponse::InternalSwap(UnloadResponse* PROTOBUF_RESTRICT other) {
+  using std::swap;
+  _internal_metadata_.InternalSwap(&other->_internal_metadata_);
+        swap(_impl_.done_, other->_impl_.done_);
+}
+
+::google::protobuf::Metadata UnloadResponse::GetMetadata() const {
   return ::google::protobuf::Message::GetMetadataImpl(GetClassData()->full());
 }
 // ===================================================================
@@ -1794,6 +2041,7 @@ Scene::Scene(
   _internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(
       from._internal_metadata_);
   new (&_impl_) Impl_(internal_visibility(), arena, from._impl_, from);
+  _impl_.done_ = from._impl_.done_;
 
   // @@protoc_insertion_point(copy_constructor:sceneviewer.Scene)
 }
@@ -1805,6 +2053,7 @@ inline PROTOBUF_NDEBUG_INLINE Scene::Impl_::Impl_(
 
 inline void Scene::SharedCtor(::_pb::Arena* arena) {
   new (&_impl_) Impl_(internal_visibility(), arena);
+  _impl_.done_ = {};
 }
 Scene::~Scene() {
   // @@protoc_insertion_point(destructor:sceneviewer.Scene)
@@ -1865,15 +2114,15 @@ const ::google::protobuf::internal::ClassData* Scene::GetClassData() const {
   return _class_data_.base();
 }
 PROTOBUF_CONSTINIT PROTOBUF_ATTRIBUTE_INIT_PRIORITY1
-const ::_pbi::TcParseTable<0, 1, 1, 0, 2> Scene::_table_ = {
+const ::_pbi::TcParseTable<1, 2, 1, 0, 2> Scene::_table_ = {
   {
     0,  // no _has_bits_
     0, // no _extensions_
-    1, 0,  // max_field_number, fast_idx_mask
+    2, 8,  // max_field_number, fast_idx_mask
     offsetof(decltype(_table_), field_lookup_table),
-    4294967294,  // skipmap
+    4294967292,  // skipmap
     offsetof(decltype(_table_), field_entries),
-    1,  // num_field_entries
+    2,  // num_field_entries
     1,  // num_aux_entries
     offsetof(decltype(_table_), aux_entries),
     _class_data_.base(),
@@ -1883,6 +2132,9 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> Scene::_table_ = {
     ::_pbi::TcParser::GetTable<::sceneviewer::Scene>(),  // to_prefetch
     #endif  // PROTOBUF_PREFETCH_PARSE_TABLE
   }, {{
+    // bool done = 2;
+    {::_pbi::TcParser::SingularVarintNoZag1<bool, offsetof(Scene, _impl_.done_), 63>(),
+     {16, 63, 0, PROTOBUF_FIELD_OFFSET(Scene, _impl_.done_)}},
     // repeated .sceneviewer.Model models = 1;
     {::_pbi::TcParser::FastMtR1,
      {10, 63, 0, PROTOBUF_FIELD_OFFSET(Scene, _impl_.models_)}},
@@ -1892,6 +2144,9 @@ const ::_pbi::TcParseTable<0, 1, 1, 0, 2> Scene::_table_ = {
     // repeated .sceneviewer.Model models = 1;
     {PROTOBUF_FIELD_OFFSET(Scene, _impl_.models_), 0, 0,
     (0 | ::_fl::kFcRepeated | ::_fl::kMessage | ::_fl::kTvTable)},
+    // bool done = 2;
+    {PROTOBUF_FIELD_OFFSET(Scene, _impl_.done_), 0, 0,
+    (0 | ::_fl::kFcSingular | ::_fl::kBool)},
   }}, {{
     {::_pbi::TcParser::GetTable<::sceneviewer::Model>()},
   }}, {{
@@ -1906,6 +2161,7 @@ PROTOBUF_NOINLINE void Scene::Clear() {
   (void) cached_has_bits;
 
   _impl_.models_.Clear();
+  _impl_.done_ = false;
   _internal_metadata_.Clear<::google::protobuf::UnknownFieldSet>();
 }
 
@@ -1933,6 +2189,13 @@ PROTOBUF_NOINLINE void Scene::Clear() {
                 ::google::protobuf::internal::WireFormatLite::InternalWriteMessage(
                     1, repfield, repfield.GetCachedSize(),
                     target, stream);
+          }
+
+          // bool done = 2;
+          if (this_._internal_done() != 0) {
+            target = stream->EnsureSpace(target);
+            target = ::_pbi::WireFormatLite::WriteBoolToArray(
+                2, this_._internal_done(), target);
           }
 
           if (PROTOBUF_PREDICT_FALSE(this_._internal_metadata_.have_unknown_fields())) {
@@ -1968,6 +2231,12 @@ PROTOBUF_NOINLINE void Scene::Clear() {
               }
             }
           }
+           {
+            // bool done = 2;
+            if (this_._internal_done() != 0) {
+              total_size += 2;
+            }
+          }
           return this_.MaybeComputeUnknownFieldsSize(total_size,
                                                      &this_._impl_._cached_size_);
         }
@@ -1982,6 +2251,9 @@ void Scene::MergeImpl(::google::protobuf::MessageLite& to_msg, const ::google::p
 
   _this->_internal_mutable_models()->MergeFrom(
       from._internal_models());
+  if (from._internal_done() != 0) {
+    _this->_impl_.done_ = from._impl_.done_;
+  }
   _this->_internal_metadata_.MergeFrom<::google::protobuf::UnknownFieldSet>(from._internal_metadata_);
 }
 
@@ -1997,6 +2269,7 @@ void Scene::InternalSwap(Scene* PROTOBUF_RESTRICT other) {
   using std::swap;
   _internal_metadata_.InternalSwap(&other->_internal_metadata_);
   _impl_.models_.InternalSwap(&other->_impl_.models_);
+        swap(_impl_.done_, other->_impl_.done_);
 }
 
 ::google::protobuf::Metadata Scene::GetMetadata() const {

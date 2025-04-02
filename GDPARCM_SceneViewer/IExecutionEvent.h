@@ -2,7 +2,7 @@
 class IExecutionEvent
 {
 public:
-	virtual void onFinishedExecution() = 0;
+	virtual void onFinishedExecution(int index) = 0;
 };
 
 

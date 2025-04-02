@@ -4,7 +4,10 @@
 #include "SceneManager.h"
 #include <string>
 
-class SceneUI
+#include "IExecutionEvent.h"
+#include "SceneViewerClient.h"
+
+class SceneUI : public IExecutionEvent
 {
 private:
     SceneManager* sceneManager;
@@ -15,11 +18,19 @@ private:
 
     void BufferingBar(const char* label, float progress);
 
+    std::unordered_map<SceneID,SceneViewerClient*> clients;
+
+    std::vector<bool> shouldUnlock;
+
 public:
     SceneUI();
 
-    ~SceneUI();;
+    ~SceneUI();
+    void LoadScene(SceneID index);
+    void UnloadScene(SceneID index);;
 
     void render();
+
+    void onFinishedExecution(int i) override;
 };
 

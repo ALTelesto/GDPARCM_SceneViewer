@@ -21,6 +21,7 @@ public:
 	float getProgress(SceneID index);
 
 	void loadScene(SceneID index, SceneLocal scene);
+	bool unloadScene(SceneID index);
 	SceneLocal getScene(SceneID index);
 
 	void setSceneActive(SceneID index, bool value);
@@ -28,6 +29,9 @@ public:
 
 	bool registerLoadScene(SceneID index);
 	void reportDoneScene(SceneID index);
+
+	void loadObjFilePaths();
+	vector<string> getObjFilePaths();
 
 	SceneList loadedScenes;
 
@@ -37,11 +41,13 @@ private:
 	SceneManager& operator=(SceneManager const&) {};  // assignment operator is private
 	static SceneManager* sharedInstance;
 
-	vector<float> progress;
+	unordered_map<SceneID, float> progress;
+	//vector<float> progress;
 	SceneActive sceneActive;
 
 	mutex sceneGuard;
 	mutex progressGuard;
-	vector<mutex*> loadingGuard;
+	vector<mutex> loadingGuard;
+	vector<string> objPaths;
 };
 

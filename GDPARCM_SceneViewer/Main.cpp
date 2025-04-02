@@ -89,11 +89,10 @@ void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
     }
     // spawn
     // won't activate if the 3 second cooldown isnt over, this is tracked by getting the current timestamp and subtracting with the previous spawn timestamp
-    if (key == GLFW_KEY_SPACE && action == GLFW_PRESS && (currentTime - lastSpawnTime) > cooldownTime) {
+    /*if (key == GLFW_KEY_SPACE && action == GLFW_PRESS && (currentTime - lastSpawnTime) > cooldownTime) {
         lastSpawnTime = glfwGetTime();
         glm::vec3 ObjectPos = (spawnMod * cameraCenter) + pos_mod;
 
-        //loading of mesh
         std::string path = "3D/kacsrr3.obj";
         std::vector<tinyobj::shape_t> shape;
         std::vector<tinyobj::material_t> material;
@@ -107,12 +106,10 @@ void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
             mesh_indices.push_back(shape[0].mesh.indices[i].vertex_index);
         }
 
-        //creation of model
         Model3D* newModel = new Model3D(ObjectPos, glm::vec3(0.f, 0.f, 0.f), glm::vec3(scale_mod, scale_mod, scale_mod), attributes.vertices, mesh_indices);
 
-
         SceneManager::getInstance()->loadedScenes[0].push_back(newModel);
-    }
+    }*/
 }
 
 void Mouse_Callback(GLFWwindow* window, double mouseXNew, double mouseYNew) {
@@ -142,7 +139,7 @@ void Mouse_Callback(GLFWwindow* window, double mouseXNew, double mouseYNew) {
     }
 }
 
-int ViewerWindow()
+void ViewerWindow()
 {
 	SceneManager::getInstance();
 
@@ -152,7 +149,7 @@ int ViewerWindow()
 	/* Initialize the library */
 	glfwSetErrorCallback(glfw_error_callback);
 	if (!glfwInit())
-		return 1;
+		return;
 
 	// Decide GL+GLSL versions
 #if defined(IMGUI_IMPL_OPENGL_ES2)
@@ -187,7 +184,7 @@ int ViewerWindow()
 	window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
-		return -1;
+		return;
 	}
 
 	/* Make the window's context current */
@@ -258,8 +255,8 @@ int ViewerWindow()
 
 		guiScreen->render();
 
-		if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);
+		/*if (show_demo_window)
+			ImGui::ShowDemoWindow(&show_demo_window);*/
 
 		/* Render here */
 		ImGui::Render();
@@ -273,7 +270,9 @@ int ViewerWindow()
 		{
 			if(SceneManager::getInstance()->isSceneActive(static_cast<SceneID>(i)))
 			{
+                //std::cout << "Rendering scene " + to_string(i) + "\n";
 				for (Model3D* Model : SceneManager::getInstance()->loadedScenes[i]) {
+                    
 					Model->draw(pos_mod, rx_mod, ry_mod, fov_mod, shaderProgram);
 				}
 			}
@@ -290,20 +289,76 @@ int ViewerWindow()
 
 	glfwTerminate();
 	delete guiScreen;   // deletes guiScreen after closing bc why not
-	return 0;
 }
 #pragma endregion client
+
+#pragma region server
+void ServerWindow()
+{
+#if defined(IMGUI_IMPL_OPENGL_ES2)
+    // GL ES 2.0 + GLSL 100 (WebGL 1.0)
+    const char* glsl_version = "#version 100";
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 2);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+#elif defined(IMGUI_IMPL_OPENGL_ES3)
+    // GL ES 3.0 + GLSL 300 es (WebGL 2.0)
+    const char* glsl_version = "#version 300 es";
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    glfwWindowHint(GLFW_CLIENT_API, GLFW_OPENGL_ES_API);
+#elif defined(__APPLE__)
+    // GL 3.2 + GLSL 150
+    const char* glsl_version = "#version 150";
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 2);
+    glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+    glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // Required on Mac
+#else
+    // GL 3.0 + GLSL 130
+    const char* glsl_version = "#version 130";
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
+    glfwWindowHint(GLFW_CONTEXT_VERSION_MINOR, 0);
+    //glfwWindowHint(GLFW_OPENGL_PROFILE, GLFW_OPENGL_CORE_PROFILE);  // 3.2+ only
+    //glfwWindowHint(GLFW_OPENGL_FORWARD_COMPAT, GL_TRUE);            // 3.0+ only
+#endif
+
+    // Initialize GLFW
+    glfwSetErrorCallback(glfw_error_callback);
+    if (!glfwInit())
+        return;
+
+    // Create a hidden window to create an OpenGL context
+    glfwWindowHint(GLFW_VISIBLE, GLFW_FALSE);
+    GLFWwindow* hidden_window = glfwCreateWindow(1, 1, "", NULL, NULL);
+    if (!hidden_window) {
+        glfwTerminate();
+        return;
+    }
+
+    // Make the context current
+    glfwMakeContextCurrent(hidden_window);
+    gladLoadGL();
+
+	SceneViewerServer server;
+	server.start();
+
+    glfwDestroyWindow(hidden_window);
+    glfwTerminate();
+}
+#pragma endregion server
 
 #if IS_CLIENT
 int main(void)
 {
-    return ViewerWindow();
+    ViewerWindow();
+	return 0;
 }
 #else
 int main(void)
 {
-	SceneViewerServer server;
-	server.start();
+	ServerWindow();
+	
 	while(true){}
 	return 0;
 }

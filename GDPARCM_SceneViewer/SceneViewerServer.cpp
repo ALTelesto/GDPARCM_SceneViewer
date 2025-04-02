@@ -46,6 +46,16 @@ grpc::Status SceneViewerServer::StreamLoad(grpc::ServerContext* context, const s
 		return grpc::Status::CANCELLED;
 	}
 
+	if(!SceneManager::getInstance()->getScene(request->scene_id()).empty())
+	{
+		std::cout << "[SCENE LOADING] BYPASSING already loaded Scene " + to_string(request->scene_id()) << std::endl;
+		response.set_progress(1);
+		response.clear_load_accepted();
+		response.set_ready(true);
+		writer->Write(response);
+		return grpc::Status::OK;
+	}
+
 	std::cout << "[SCENE LOADING] START loading Scene " + to_string(request->scene_id()) << std::endl;
 
 	SceneLocal scene;
@@ -66,13 +76,14 @@ grpc::Status SceneViewerServer::StreamLoad(grpc::ServerContext* context, const s
 			scene.push_back(newModel);
 		}
 		loaded++;
-		progress = static_cast<float>(loaded / totalObj);
+		progress = static_cast<float>(loaded) / totalObj;
 
 		if(progress >= 1.0f)
 		{
 			progress = 1.0f;
 		}
 
+		std::cout << "[SCENE LOADING] Progress Scene " + to_string(request->scene_id()) + ": " + to_string(progress) << std::endl;
 		response.clear_load_accepted();
 		response.set_progress(progress);
 		writer->Write(response);
@@ -91,32 +102,54 @@ grpc::Status SceneViewerServer::StreamLoad(grpc::ServerContext* context, const s
 	return grpc::Status::OK;
 }
 
+grpc::Status SceneViewerServer::UnloadScene(grpc::ServerContext* context, const sceneviewer::SceneRequest* request,
+	sceneviewer::UnloadResponse* response)
+{
+	std::cout << "[SCENE UNLOADING] START unloading Scene " + to_string(request->scene_id()) << std::endl;
+	if(!SceneManager::getInstance()->unloadScene(request->scene_id()))
+	{
+		response->set_done(false);
+		return grpc::Status::CANCELLED;
+	}
+	std::cout << "[SCENE UNLOADING] DONE unloading Scene " + to_string(request->scene_id()) << std::endl;
+	response->set_done(true);
+	return grpc::Status::OK;
+}
+
 grpc::Status SceneViewerServer::GetScene(grpc::ServerContext* context, const sceneviewer::SceneRequest* request,
                                          sceneviewer::Scene* response)
 {
-	if(SceneManager::getInstance()->getProgress(request->scene_id()) < 1.0f)
-	{
-		return grpc::Status(
-			grpc::StatusCode::FAILED_PRECONDITION,
-			"[SCENE REQUEST] Scene not fully loaded yet"
-		);
+	if (SceneManager::getInstance()->getScene(request->scene_id()).empty()) {
+		std::cout << "[SCENE GET] Early exit because not loaded Scene " + to_string(request->scene_id()) << std::endl;
+		response->set_done(false);
+		return grpc::Status::CANCELLED;
 	}
+
+	std::cout << "[SCENE GET] START getting Scene " + to_string(request->scene_id()) << std::endl;
 
 	const auto& models = SceneManager::getInstance()->getScene(request->scene_id());
-	if (models.empty()) {
-		return grpc::Status(
-			grpc::StatusCode::NOT_FOUND,
-			"[SCENE REQUEST] No models found in scene"
-		);
-	}
+	response->set_done(false);
 
-	response->mutable_models()->Reserve(models.size());
+	std::vector<sceneviewer::Model> proto_models;
+	proto_models.reserve(models.size());
 
 	for (const Model3D* model : models) {
 		if (!model) continue;
-		sceneviewer::Model* proto_model = response->add_models();
-		ConvertModel3DToProto(*model, proto_model);
+
+		sceneviewer::Model proto_model;
+		ConvertModel3DToProto(*const_cast<Model3D*>(model), &proto_model);
+		proto_models.push_back(proto_model);
 	}
+
+	std::cout << "[SCENE GET] START transcribing Scene " + to_string(request->scene_id()) << std::endl;
+
+	response->mutable_models()->Reserve(proto_models.size());
+	for (auto& proto_model : proto_models) {
+		response->add_models()->Swap(&proto_model);
+	}
+
+	std::cout << "[SCENE GET] DONE getting Scene " + to_string(request->scene_id()) << std::endl;
+	response->set_done(true);
 
 	return grpc::Status::OK;
 }
@@ -145,73 +178,84 @@ void SceneViewerServer::RunServer(uint16_t port)
 	server->Wait();
 }
 
-Model3D* SceneViewerServer::loadObject(SceneID index)
-{
-	int objIndex = index;
-	int obj2Index = index + 1;
-	if (obj2Index > this->objPaths.size() - 1) obj2Index = 0;
-	std::string path;
+Model3D* SceneViewerServer::loadObject(SceneID index) {
+	std::vector<std::string> objPaths = SceneManager::getInstance()->getObjFilePaths();
+
+	if (objPaths.empty()) {
+		std::cerr << "[OBJ LOADING] ERROR: No model paths available" << endl;
+		return nullptr;
+	}
+
+	std::cerr << "[OBJ LOADING] Loading model" << endl;
+
+	const size_t safe_idx1 = static_cast<size_t>(index) % objPaths.size();
+	const size_t safe_idx2 = (safe_idx1 + 1) % objPaths.size();
 
 	std::random_device rd;
-	std::mt19937 generator(rd());
-	std::uniform_int_distribution<> iDistribution(0, 1);
+	std::mt19937 gen(rd());
+	const std::string& path = std::uniform_int_distribution<>(0, 1)(gen)
+		? objPaths[safe_idx1]
+		: objPaths[safe_idx2];
 
-	std::uniform_real_distribution<float> fDistribution(-this->positionMax,this->positionMax);
+	tinyobj::attrib_t attrib;
+	std::vector<tinyobj::shape_t> shapes;
+	std::vector<tinyobj::material_t> materials;
+	std::string warn, err;
 
-	int choice = iDistribution(generator);
-	if(choice == 0)
-	{
-		path = this->objPaths[static_cast<int>(objIndex)];
-	}
-	else
-	{
-		path = this->objPaths[static_cast<int>(obj2Index)];
-	}
+	bool success = tinyobj::LoadObj(
+		&attrib,
+		&shapes,
+		&materials,
+		&warn,
+		&err,
+		path.c_str()
+	);
 
-	std::vector<GLuint> mesh_indices;
-	glm::vec3 ObjectPos = glm::vec3(fDistribution(generator), fDistribution(generator), fDistribution(generator));
-
-	std::vector<tinyobj::shape_t> shape;
-	std::vector<tinyobj::material_t> material;
-	std::string warning, error;
-
-	tinyobj::attrib_t attributes;
-
-	bool success = tinyobj::LoadObj(&attributes, &shape, &material, &warning, &error, path.c_str());
-
-	if(!success)
-	{
-		std::cout << "[OBJ LOADING] ERROR model failed to load, path is: " + path << std::endl;
+	if (!warn.empty()) {
+		std::cout << "[OBJ WARNING] " << warn << endl;
 	}
 
-	for (int i = 0; i < shape[0].mesh.indices.size(); i++) {
-		mesh_indices.push_back(shape[0].mesh.indices[i].vertex_index);
+	if (!err.empty() || !success) {
+		std::cerr << "[OBJ ERROR] " << err << " in file: " << path << endl;
+		return nullptr;
 	}
 
-	//creation of model
-	Model3D* newModel = new Model3D(ObjectPos, glm::vec3(0.f, 0.f, 0.f), glm::vec3(1, 1, 1), attributes.vertices, mesh_indices);
-
-	std::uniform_int_distribution<> timeDistribution(500, 1500);
-
-	std::this_thread::sleep_for(std::chrono::milliseconds(timeDistribution(generator)));
-
-	return newModel;
-}
-
-void SceneViewerServer::loadObjFilePaths()
-{
-	std::cout << "[SceneViewerServer] Reading from asset list" << std::endl;
-	std::ifstream stream("3D/models.txt");
-	std::string path;
-
-	while (std::getline(stream, path))
-	{
-		this->objPaths.push_back(path);
-		std::cout << "[SceneViewerServer] Loaded model path: " << path << std::endl;
+	if (shapes.empty()) {
+		std::cerr << "[OBJ ERROR] No shapes found in: " << path << endl;
+		return nullptr;
 	}
+
+	std::vector<GLuint> indices;
+	for (const auto& index : shapes[0].mesh.indices) {
+		indices.push_back(index.vertex_index);
+	}
+
+	if (attrib.vertices.empty()) {
+		std::cerr << "[OBJ ERROR] No vertices found in: " << path << endl;
+		return nullptr;
+	}
+
+	std::cout << "indices size: " + to_string(indices.size()) + "\n";
+	std::cout << "vertices size: " + to_string(attrib.vertices.size()) + "\n";
+
+	std::uniform_real_distribution<float> dist(-positionMax, positionMax);
+	std::uniform_real_distribution<float> scal(0.7, 1.0);
+	glm::vec3 pos(dist(gen), dist(gen), dist(gen));
+
+	std::this_thread::sleep_for(std::chrono::milliseconds(
+		std::uniform_int_distribution<>(500, 3000)(gen)));
+
+	return new Model3D(
+		pos,
+		glm::vec3(0.f),
+		glm::vec3(scal(gen)),
+		attrib.vertices,
+		indices
+	);
 }
 
 void SceneViewerServer::run()
 {
+	SceneManager::getInstance()->loadObjFilePaths();
 	RunServer(50051);
 }
