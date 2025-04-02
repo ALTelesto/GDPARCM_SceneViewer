@@ -120,6 +120,9 @@
     <ClCompile Include="SceneViewerClient.cpp">
       <Filter>Source Files\Networking\Client</Filter>
     </ClCompile>
+    <ClCompile Include="FPSCounter.cpp">
+      <Filter>Source Files\UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stb_image.h">
@@ -193,6 +196,9 @@
     </ClInclude>
     <ClInclude Include="SceneViewerClient.h">
       <Filter>Source Files\Networking\Client</Filter>
+    </ClInclude>
+    <ClInclude Include="FPSCounter.h">
+      <Filter>Source Files\UI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

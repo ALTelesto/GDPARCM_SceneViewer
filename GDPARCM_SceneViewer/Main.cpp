@@ -114,29 +114,33 @@ void Key_Callback(GLFWwindow* window, int key, int scancode, int action, int mod
 }
 
 void Mouse_Callback(GLFWwindow* window, double mouseXNew, double mouseYNew) {
-    // initialize mouse position
-    if (start) {
+    if (glfwGetMouseButton(window, GLFW_MOUSE_BUTTON_RIGHT) == GLFW_PRESS) {
+
+        if (start) {
+            mouseX = mouseXNew;
+            mouseY = mouseYNew;
+            start = false;
+        }
+
+        float offsetX = mouseXNew - mouseX;
+        float offsetY = mouseY - mouseYNew;
+
         mouseX = mouseXNew;
         mouseY = mouseYNew;
-        start = false;
-    }
-    // get difference in mouse position
-    float offsetX = mouseXNew - mouseX;
-    float offsetY = mouseY - mouseYNew;
-    // set current position to the new position
-    mouseX = mouseXNew;
-    mouseY = mouseYNew;
 
-    // multiply with sensitivity modifier
-    rx_mod += offsetX * sens_mod;
-    ry_mod += offsetY * sens_mod;
+        rx_mod += offsetX * sens_mod;
+        ry_mod += offsetY * sens_mod;
 
-    // prevent upside-down
-    if (ry_mod > 89.9f) {
-        ry_mod = 89.9f;
+        if (ry_mod > 89.9f) {
+            ry_mod = 89.9f;
+        }
+        else if (ry_mod < -89.9f) {
+            ry_mod = -89.9f;
+        }
     }
-    else if (ry_mod < -89.9f) {
-        ry_mod = -89.9f;
+    else {
+        mouseX = mouseXNew;
+        mouseY = mouseYNew;
     }
 }
 
@@ -182,7 +186,7 @@ void ViewerWindow()
 #endif
 
 	/* Create a windowed mode window and its OpenGL context */
-	window = glfwCreateWindow(800, 600, "Hello World", NULL, NULL);
+	window = glfwCreateWindow(1200, 900, "SCENE VIEWER", NULL, NULL);
 	if (!window) {
 		glfwTerminate();
 		return;
@@ -255,15 +259,13 @@ void ViewerWindow()
 		ImGui_ImplGlfw_NewFrame();
 		ImGui::NewFrame();
 
-		guiScreen->render();
-
-		/*if (show_demo_window)
-			ImGui::ShowDemoWindow(&show_demo_window);*/
-
 		/* Render here */
-		ImGui::Render();
+		
 		guiScreen->render();
 		fpsCounter.render();
+
+        ImGui::Render();
+
 		glClear(GL_COLOR_BUFFER_BIT);
 
 		// get current timestamp

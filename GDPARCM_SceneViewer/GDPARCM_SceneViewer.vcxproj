@@ -190,6 +190,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="BusyWaitSemaphore.cpp" />
+    <ClCompile Include="FPSCounter.cpp" />
     <ClCompile Include="glad.c" />
     <ClCompile Include="GreeterClient.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
@@ -228,6 +229,7 @@
   <ItemGroup>
     <ClInclude Include="BusyWaitSemaphore.h" />
     <ClInclude Include="Dependencies.h" />
+    <ClInclude Include="FPSCounter.h" />
     <ClInclude Include="GreeterClient.h">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Server|x64'">true</ExcludedFromBuild>
